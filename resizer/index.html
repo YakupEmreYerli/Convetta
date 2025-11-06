@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convetta - Free Online Image Resizer</title>
+    <meta name="description" content="Easily adjust the width and height of your images in pixels (px) with Convetta's free online image resizer. Fast, secure, and works right in your browser.">
+    <link rel="canonical" href="https://convetta.com/resizer/">
+    <meta name="author" content="Yekuda">
+    <meta name="robots" content="index, follow">
+    <meta name="keywords" content="image resizer, photo resizer, resize image online, change image dimensions, pixel editor, free image tool">
+    
+    <link rel="alternate" hreflang="en" href="https://convetta.com/resizer/">
+    <link rel="alternate" hreflang="tr" href="https://convetta.com/tr/resizer/">
+    <link rel="alternate" hreflang="x-default" href="https://convetta.com/resizer/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Convetta">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Convetta - Free Online Image Resizer">
+    <meta property="og:description" content="Easily adjust the dimensions of your images in pixels (px). Fast, secure, and completely free.">
+    <meta property="og:url" content="https://convetta.com/resizer/">
+    <meta property="og:image" content="https://convetta.com/assets/images/en-og-resizer-image.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Convetta logo and a preview of the image resizing tool">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Convetta - Free Online Image Resizer">
+    <meta name="twitter:description" content="Easily adjust the dimensions of your images in pixels (px). Fast, secure, and completely free.">
+    <meta name="twitter:image" content="https://convetta.com/assets/images/en-og-resizer-image.png">
+    <meta name="twitter:image:alt" content="Convetta logo and a preview of the image resizing tool">
+    <link rel="icon" href="../assets/images/favicon.ico" sizes="any">
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png"> <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
+    <meta name="theme-color" content="#2864EC">
+    <meta name="msapplication-TileColor" content="#2864EC">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="google" content="notranslate">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
+    <link rel="stylesheet" href="../assets/css/style.css?v=1.0.3">
+    
+
+    <script>
+
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark-theme-loading');
+                // Wait for body to be available
+                if (document.body) {
+                    document.body.classList.add('dark-theme');
+                } else {
+                    document.addEventListener('DOMContentLoaded', function() {
+                        document.body.classList.add('dark-theme');
+                    });
+                }
+            }
+        })();
+    </script>
+    
+    <style>
+
+        .dark-theme-loading {
+            background-color: #0f172a !important;
+            color: #f1f5f9 !important;
+        }
+        .dark-theme-loading body {
+            background-color: #0f172a !important;
+            color: #f1f5f9 !important;
+        }
+
+        .dark-theme-loading #main-header {
+            background-color: #1e293b !important;
+            border-bottom-color: #334155 !important;
+        }
+
+        .dark-theme-loading #main-header.bg-white,
+        .dark-theme-loading #faq-container.bg-white {
+            background-color: #1e293b !important;
+        }
+        .dark-theme-loading .text-gray-800,
+        .dark-theme-loading .text-gray-700,
+        .dark-theme-loading .text-gray-600,
+        .dark-theme-loading .text-gray-500 {
+            color: #f1f5f9 !important;
+        }
+
+        .dark-theme-loading .border-gray-300 {
+            border-color: #334155 !important;
+        }
+        .dark-theme-loading #drop-zone {
+            background-color: #0f172a !important;
+            border-color: #334155 !important;
+            color: #cbd5e1 !important;
+        }
+        .dark-theme-loading #drop-text {
+            color: #cbd5e1 !important;
+        }
+
+        .dark-theme-loading select,
+        .dark-theme-loading input[type="text"],
+        .dark-theme-loading input[type="number"] {
+            background-color: #0f172a !important;
+            border-color: #334155 !important;
+            color: #f1f5f9 !important;
+        }
+        .dark-theme-loading label {
+            color: #f1f5f9 !important;
+        }
+
+        .dark-theme-loading #faq-container {
+            background-color: #1e293b !important;
+        }
+        .dark-theme-loading .accordion-item {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        .dark-theme-loading .accordion-header {
+            color: #f1f5f9 !important;
+        }
+        
+
+        .dark-theme-loading #resizer #results .bg-white {
+            background-color: #1e293b !important;
+        }
+        
+
+        
+        .dark-theme-loading input[type="number"] {
+            background-color: #0f172a !important;
+            border-color: #334155 !important;
+            color: #f1f5f9 !important;
+        }
+        
+        .dark-theme-loading .text-sm.font-medium.text-gray-700 {
+            color: #f1f5f9 !important;
+        }
+        
+        .dark-theme-loading .font-semibold.text-gray-700 {
+            color: #f1f5f9 !important;
+        }
+        
+
+        #main-header:empty {
+            min-height: 80px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            position: relative;
+        }
+        
+        .dark-theme-loading #main-header:empty {
+            background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApp",
+      "name": "Convetta - Free Online Image Resizer",
+      "url": "https://convetta.com/resizer/",
+      "description": "Easily adjust the width and height of your images in pixels (px) with Convetta's free online image resizer. Fast, secure, and works right in your browser.",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Windows, macOS, Linux, Android, iOS",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Yekuda"
+      },
+      "image": "https://convetta.com/assets/images/en-og-resizer-image.png"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is my data safe? Are my files uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Your privacy is our priority. Most conversions (like PNG to JPG) happen directly in your browser. For complex formats like ICO or PDF, your file is processed on our server and is permanently deleted immediately after conversion. We never store or share your files."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What image formats are supported for conversion?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our online image converter supports the most popular formats, including JPG, PNG, GIF, and WEBP. You can convert your files to and from any of these formats."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this online image converter completely free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Convetta is a completely free online tool. There are no hidden fees, subscriptions, or usage limits for converting your images."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I convert multiple images at once?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely! You can select and convert multiple images at the same time. This bulk conversion feature allows you to process your images quickly and efficiently."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will the quality of my images decrease after conversion?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We use advanced algorithms to ensure the highest possible quality. While some formats (like JPG) are naturally lossy, we minimize any quality decrease. For formats like PNG, the conversion is lossless, preserving the original quality."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the maximum file size I can convert?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To ensure fast performance for all users, there might be a reasonable file size limit for uploads. Most images intended for web use fall well within this limit."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to install any software or application?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, you do not need to install anything. Convetta works entirely in your web browser. This makes the process fast, secure, and accessible from any device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the WEBP format and what are its advantages?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "WEBP is a modern image format developed by Google that provides superior lossless and lossy compression for images on the web. WEBP images are significantly smaller than JPGs and PNGs, leading to faster website load times."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I download all my converted files together?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "After the conversion is complete, we provide a 'Download All as ZIP' button. Clicking this button will compress all your converted images into a single ZIP file for easy downloading."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the converter work on mobile phones and tablets?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, our image converter is fully responsive and designed to work seamlessly on all modern devices, including smartphones, tablets, and desktop computers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why use an online converter instead of desktop software?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Online converters offer great convenience. There's no need for installation or updates, you can access them from anywhere, and they don't use up your computer's resources. They are perfect for quick and easy conversion tasks."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is my privacy protected during conversion?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Your privacy is paramount. Since most conversions happen client-side (in your browser), your files don't even leave your computer. For server-side conversions, files are deleted instantly after processing. We do not log, store, or view your images."
+          }
+        }
+      ]
+    }
+    </script>
+
+    </head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center">
+
+    <header id="main-header" class="bg-white shadow w-full"></header>
+
+  <main class="flex-grow w-full max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8" id="resizer">
+      <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col lg:flex-row gap-8">
+          <div class="lg:w-1/2 flex flex-col">
+              <div class="text-center mb-8">
+                  <h2 class="text-3xl font-bold text-gray-800">Resize Your Images</h2>
+                  <p class="text-gray-500 mt-2">Adjust image dimensions in seconds.</p>
+              </div>
+
+              <div id="drop-zone" class="border-2 border-dashed border-gray-300 rounded-lg p-10 text-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 flex-grow flex flex-col items-center justify-center">
+                  <input type="file" id="fileInput" class="hidden" accept="image/*" multiple>
+                  <div id="drop-text" class="text-gray-500 font-medium">
+                      Drag and drop images here or
+                      <span class="text-blue-500 font-bold">click to browse</span>
+                  </div>
+              </div>
+
+              <div id="fileList" class="mt-6 hidden">
+                  <h3 class="font-semibold text-gray-700 mb-2">Selected Files:</h3>
+                  <ul class="list-disc list-inside text-gray-600"></ul>
+              </div>
+
+              <div id="resizeControls" class="mt-6 flex flex-col gap-4">
+                  <div class="flex items-center justify-between gap-3">
+                      <div class="w-full">
+                          <label for="widthInput" class="block text-sm font-medium text-gray-700 mb-1">Width (px):</label>
+                          <input type="number" id="widthInput" class="mt-1 block w-full pl-3 pr-2 py-2 text-base border-gray-300 rounded-md shadow-sm">
+                      </div>
+                      <div class="flex-shrink-0 pt-6">
+                          <input type="checkbox" id="aspectRatioLock" class="hidden" checked>
+                          <button id="aspectRatioButton" type="button" class="p-2 rounded-md bg-blue-600 text-white transition-colors duration-200" title="Lock/Unlock Aspect Ratio">
+                              <svg id="icon-locked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+                              </svg>
+                              <svg id="icon-unlocked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 hidden">
+                                <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6zM10 12a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                              </svg>
+                          </button>
+                      </div>
+                      <div class="w-full">
+                          <label for="heightInput" class="block text-sm font-medium text-gray-700 mb-1">Height (px):</label>
+                          <input type="number" id="heightInput" class="mt-1 block w-full pl-3 pr-2 py-2 text-base border-gray-300 rounded-md shadow-sm">
+                      </div>
+                  </div>
+                  <button id="resizeButton" class="w-full mt-4 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md transition-transform duration-300 hover:scale-105 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                      Resize
+                  </button>
+              </div>
+          </div>
+
+          <div class="lg:w-1/2 flex flex-col">
+              <div class="text-center mb-8 lg:text-left">
+                  <h2 class="text-3xl font-bold text-gray-800">Resized Images</h2>
+                  <p class="text-gray-500 mt-2">Download your resized files here.</p>
+              </div>
+              <div id="results" class="flex-grow hidden">
+                  <div class="flex flex-col sm:flex-row gap-4 mb-4">
+                      <button id="downloadSeparateButton" class="flex-1 px-6 py-3 bg-blue-500 text-white font-medium rounded-lg shadow-md transition-transform duration-300 hover:scale-105 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                          Download as Separate Files
+                      </button>
+                      <button id="downloadAllButton" class="flex-1 px-6 py-3 bg-green-500 text-white font-medium rounded-lg shadow-md transition-transform duration-300 hover:scale-105 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                          Download All as ZIP
+                      </button>
+                  </div>
+                  <div id="result-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </main>
+    
+    <section class="w-full max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-white rounded-2xl shadow-xl mt-8 mb-8">
+        <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">Frequently Asked Questions</h2>
+        <div id="faq-list">
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Is my data safe? Are my files uploaded to a server?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Your privacy is our priority. Most conversions (like PNG to JPG) happen directly in your browser. For complex formats like ICO or PDF, your file is processed on our server and is permanently deleted immediately after conversion. We never store or share your files.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">What image formats are supported for conversion?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Our online image converter supports the most popular formats, including JPG, PNG, GIF, and WEBP. You can convert your files to and from any of these formats.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Is this online image converter completely free?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Yes, Convetta is a completely free online tool. There are no hidden fees, subscriptions, or usage limits for converting your images.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Can I convert multiple images at once?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Absolutely! You can select and convert multiple images at the same time. This bulk conversion feature allows you to process your images quickly and efficiently.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Will the quality of my images decrease after conversion?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>We use advanced algorithms to ensure the highest possible quality. While some formats (like JPG) are naturally lossy, we minimize any quality decrease. For formats like PNG, the conversion is lossless, preserving the original quality.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">What is the maximum file size I can convert?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>To ensure fast performance for all users, there might be a reasonable file size limit for uploads. Most images intended for web use fall well within this limit.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Do I need to install any software or application?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>No, you do not need to install anything. Convetta works entirely in your web browser. This makes the process fast, secure, and accessible from any device.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">What is the WEBP format and what are its advantages?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>WEBP is a modern image format developed by Google that provides superior lossless and lossy compression for images on the web. WEBP images are significantly smaller than JPGs and PNGs, leading to faster website load times.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">How can I download all my converted files together?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>After the conversion is complete, we provide a 'Download All as ZIP' button. Clicking this button will compress all your converted images into a single ZIP file for easy downloading.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Does the converter work on mobile phones and tablets?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Yes, our image converter is fully responsive and designed to work seamlessly on all modern devices, including smartphones, tablets, and desktop computers.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Why use an online converter instead of desktop software?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Online converters offer great convenience. There's no need for installation or updates, you can access them from anywhere, and they don't use up your computer's resources. They are perfect for quick and easy conversion tasks.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">How is my privacy protected during conversion?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Your privacy is paramount. Since most conversions happen client-side (in your browser), your files don't even leave your computer. For server-side conversions, files are deleted instantly after processing. We do not log, store, or view your images.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="main-footer" class="bg-white w-full py-6 mt-auto">
+        <div class="max-w-7xl mx-auto text-center text-sm flex flex-col sm:flex-row justify-center items-center gap-3">
+            <p id="footer-rights" class="text-gray-800 dark:text-gray-400">&copy; 2025 Convetta. All rights reserved.</p>
+            <span class="hidden sm:inline text-gray-500 dark:text-gray-600">•</span>
+            <p id="footer-support" class="text-gray-800 dark:text-gray-300">
+                Need help?
+                <a href="mailto:support@convetta.com" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
+                    support@convetta.com
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/layout.js?v=1.0.3"></script>
+    <script src="../assets/js/helper.js?v=1.0.3"></script>
+    <script src="../assets/js/script-resizer.js?v=1.0.3"></script>
+</body>
+</html>
