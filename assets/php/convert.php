@@ -1,5 +1,12 @@
 <?php
 
+header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self';");
+header("X-Content-Type-Options: nosniff");
+header("X-Frame-Options: DENY");
+header("Strict-Transport-Security: max-age=31536000; includeSubDomains");
+header("X-XSS-Protection: 1; mode=block");
+header("Referrer-Policy: no-referrer");
+
 ob_clean();
 
 $uploadDir = __DIR__ . '/uploads/';
@@ -7,10 +14,16 @@ if (!file_exists($uploadDir)) {
     mkdir($uploadDir, 0775, true);
 }
 
-function sendError($message, $httpCode = 400) {
+function sendError($message, $httpCode = 400, $logMessage = '') {
     http_response_code($httpCode);
     header('Content-Type: text/plain');
-    echo $message;
+
+    if ($httpCode >= 500) {
+        error_log($logMessage);
+        echo 'Sunucuda bir hata oluştu. Lütfen daha sonra tekrar deneyin.';
+    } else {
+        echo $message;
+    }
     exit;
 }
 
@@ -19,8 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['dosya'])) {
         sendError('Hedef format belirtilmedi.');
     }
     $targetFormat = strtolower($_POST['format']);
-    $originalFileName = $_FILES['dosya']['name'];
-    $originalFileExt = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
+    $originalFileName = basename($_FILES['dosya']['name']);
+    $safeFileExt = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
+
+    $safeFileName = preg_replace('/[^A-Za-z0-9\._-]/', '', $originalFileName);
+    $safeFileExt = strtolower(pathinfo($safeFileName, PATHINFO_EXTENSION));
 
     $supportedFormats = [
         'ico' => 'image/x-icon',
@@ -42,9 +58,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['dosya'])) {
         sendError('Dosya yükleme hatası: ' . $_FILES['dosya']['error'], 500);
     }
 
-    $inputFile = $_FILES['dosya']['tmp_name'];
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mimeType = finfo_file($finfo, $inputFile);
+    finfo_close($finfo);
 
-    $originalFileSavedName = uniqid() . '_' . $originalFileName;
+    if (!array_key_exists($safeFileExt, $supportedFormats) || !in_array($mimeType, $supportedFormats)) {
+        sendError('Lütfen geçerli bir görsel veya PDF dosyası yükleyin.');
+    }
+
+    $originalFileSavedName = uniqid() . '.' . $safeFileExt;
     $originalFileSavedPath = $uploadDir . $originalFileSavedName;
 
     if (!move_uploaded_file($inputFile, $originalFileSavedPath)) {
@@ -53,24 +75,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['dosya'])) {
 
     $outputFile = $uploadDir . 'output_' . uniqid() . '.' . $targetFormat;
 
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mimeType = finfo_file($finfo, $originalFileSavedPath);
-    finfo_close($finfo);
-
-    if (!array_key_exists($originalFileExt, $supportedFormats) && !in_array($mimeType, $supportedFormats)) {
-        unlink($originalFileSavedPath);
-        sendError('Lütfen geçerli bir görsel veya PDF dosyası yükleyin.');
-    }
-
     try {
         $image = new Imagick();
+        
+        $image->setResourceLimit(Imagick::RESOURCETYPE_MEMORY, 256);
+        $image->setResourceLimit(Imagick::RESOURCETYPE_MAP, 512);
+        
         if ($mimeType === 'application/pdf') {
             $image->readImage($originalFileSavedPath . '[0]');
         } else {
             $image->readImage($originalFileSavedPath);
         }
 
-        if (in_array($originalFileExt, ['png', 'gif', 'webp']) && $image->getImageAlphaChannel()) {
+        if (in_array($safeFileExt, ['png', 'gif', 'webp']) && $image->getImageAlphaChannel()) {
             $image->setImageAlphaChannel(Imagick::ALPHACHANNEL_ACTIVATE);
         }
 
@@ -108,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['dosya'])) {
         if (file_exists($outputFile)) {
             unlink($outputFile);
         }
-        sendError('Sunucu hatası: ' . $e->getMessage(), 500);
+        sendError('Sunucu hatası.', 500, 'Imagick hatası: ' . $e->getMessage());
     }
 } else {
     sendError('Geçersiz istek. Lütfen bir dosya yükleyin.');
