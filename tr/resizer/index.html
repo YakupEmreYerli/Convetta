@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convetta - Ücretsiz Online Resim Boyutlandırıcı</title>
+    <meta name="description" content="Convetta'nın ücretsiz resim boyutlandırma aracıyla görsellerinizin genişlik ve yüksekliğini piksel (px) olarak kolayca ayarlayın. Hızlı, güvenli ve tarayıcınızda çalışır.">
+    <link rel="canonical" href="https://convetta.com/tr/resizer/">
+    <meta name="author" content="Yekuda">
+    <meta name="robots" content="index, follow">
+    <meta name="keywords" content="resim boyutlandırma, fotoğraf küçültme, online resim boyutu ayarlama, piksel ayarlama, resim en boy oranı değiştirme">
+    
+    <link rel="alternate" hreflang="en" href="https://convetta.com/resizer/">
+    <link rel="alternate" hreflang="tr" href="https://convetta.com/tr/resizer/">
+    <link rel="alternate" hreflang="x-default" href="https://convetta.com/resizer/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Convetta">
+    <meta property="og:locale" content="tr_TR">
+    <meta property="og:title" content="Convetta - Ücretsiz Online Resim Boyutlandırıcı">
+    <meta property="og:description" content="Görsellerinizin boyutlarını piksel (px) olarak kolayca ayarlayın. Hızlı, güvenli ve tamamen ücretsiz.">
+    <meta property="og:url" content="https://convetta.com/tr/resizer/">
+    <meta property="og:image" content="https://convetta.com/assets/images/tr-og-resizer-image.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Convetta logosu ve resim boyutlandırma aracı önizlemesi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Convetta - Ücretsiz Online Resim Boyutlandırıcı">
+    <meta name="twitter:description" content="Görsellerinizin boyutlarını piksel (px) olarak kolayca ayarlayın. Hızlı, güvenli ve tamamen ücretsiz.">
+    <meta name="twitter:image" content="https://convetta.com/assets/images/tr-og-resizer-image.png">
+    <meta name="twitter:image:alt" content="Convetta logosu ve resim boyutlandırma aracı önizlemesi">
+    <link rel="icon" href="../../assets/images/favicon.ico" sizes="any">
+    <link rel="icon" href="../../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../../assets/images/apple-touch-icon.png"> <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon-16x16.png">
+    <meta name="theme-color" content="#2864EC">
+    <meta name="msapplication-TileColor" content="#2864EC">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="google" content="notranslate">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1.0.3">
+    
+
+    <script>
+
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark-theme-loading');
+                // Wait for body to be available
+                if (document.body) {
+                    document.body.classList.add('dark-theme');
+                } else {
+                    document.addEventListener('DOMContentLoaded', function() {
+                        document.body.classList.add('dark-theme');
+                    });
+                }
+            }
+        })();
+    </script>
+    
+    <style>
+
+        .dark-theme-loading {
+            background-color: #0f172a !important;
+            color: #f1f5f9 !important;
+        }
+        .dark-theme-loading body {
+            background-color: #0f172a !important;
+            color: #f1f5f9 !important;
+        }
+
+        .dark-theme-loading #main-header {
+            background-color: #1e293b !important;
+            border-bottom-color: #334155 !important;
+        }
+
+        .dark-theme-loading #main-header.bg-white,
+        .dark-theme-loading #faq-container.bg-white {
+            background-color: #1e293b !important;
+        }
+        .dark-theme-loading .text-gray-800,
+        .dark-theme-loading .text-gray-700,
+        .dark-theme-loading .text-gray-600,
+        .dark-theme-loading .text-gray-500 {
+            color: #f1f5f9 !important;
+        }
+
+        .dark-theme-loading .border-gray-300 {
+            border-color: #334155 !important;
+        }
+        .dark-theme-loading #drop-zone {
+            background-color: #0f172a !important;
+            border-color: #334155 !important;
+            color: #cbd5e1 !important;
+        }
+        .dark-theme-loading #drop-text {
+            color: #cbd5e1 !important;
+        }
+
+        .dark-theme-loading select,
+        .dark-theme-loading input[type="text"],
+        .dark-theme-loading input[type="number"] {
+            background-color: #0f172a !important;
+            border-color: #334155 !important;
+            color: #f1f5f9 !important;
+        }
+        .dark-theme-loading label {
+            color: #f1f5f9 !important;
+        }
+
+        .dark-theme-loading #faq-container {
+            background-color: #1e293b !important;
+        }
+        .dark-theme-loading .accordion-item {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        .dark-theme-loading .accordion-header {
+            color: #f1f5f9 !important;
+        }
+        
+
+        .dark-theme-loading #resizer #results .bg-white {
+            background-color: #1e293b !important;
+        }
+        
+
+        
+        .dark-theme-loading input[type="number"] {
+            background-color: #0f172a !important;
+            border-color: #334155 !important;
+            color: #f1f5f9 !important;
+        }
+        
+        .dark-theme-loading .text-sm.font-medium.text-gray-700 {
+            color: #f1f5f9 !important;
+        }
+        
+        .dark-theme-loading .font-semibold.text-gray-700 {
+            color: #f1f5f9 !important;
+        }
+        
+
+        #main-header:empty {
+            min-height: 80px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            position: relative;
+        }
+        
+        .dark-theme-loading #main-header:empty {
+            background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApp",
+      "name": "Convetta - Ücretsiz Online Resim Boyutlandırıcı",
+      "url": "https://convetta.com/tr/resizer/",
+      "description": "Convetta'nın ücretsiz resim boyutlandırma aracıyla görsellerinizin genişlik ve yüksekliğini piksel (px) olarak kolayca ayarlayın. Hızlı, güvenli ve tarayıcınızda çalışır.",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Windows, macOS, Linux, Android, iOS",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Yekuda"
+      },
+      "image": "https://convetta.com/assets/images/tr-og-resizer-image.png"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Verilerim güvende mi? Dosyalarım bir sunucuya yükleniyor mu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Gizliliğiniz önceliğimizdir. PNG'den JPG'ye gibi çoğu dönüştürme işlemi doğrudan tarayıcınızda gerçekleşir. ICO veya PDF gibi karmaşık formatlar için dosyanız sunucumuzda işlenir ve dönüştürmeden hemen sonra kalıcı olarak silinir. Dosyalarınızı asla saklamaz veya paylaşmayız."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Hangi resim formatları destekleniyor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Çevrimiçi resim dönüştürücümüz, JPG, PNG, GIF ve WEBP dahil olmak üzere en popüler formatları desteklemektedir. Dosyalarınızı bu formatlardan herhangi birine veya bu formatlardan dönüştürebilirsiniz."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Bu online resim dönüştürücü tamamen ücretsiz mi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Evet, Convetta tamamen ücretsiz bir çevrimiçi araçtır. Resimlerinizi dönüştürmek için herhangi bir gizli ücret, abonelik veya kullanım limiti yoktur."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Aynı anda birden fazla resmi dönüştürebilir miyim?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kesinlikle! Aynı anda birden fazla resim seçip dönüştürebilirsiniz. Bu toplu dönüştürme özelliği, resimlerinizi hızlı ve verimli bir şekilde işlemenizi sağlar."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Dönüştürme sonrası resimlerimin kalitesi düşer mi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mümkün olan en yüksek kaliteyi sağlamak için gelişmiş algoritmalar kullanıyoruz. JPG gibi bazı formatlar doğası gereği kayıplı olsa da, kalite düşüşünü en aza indiriyoruz. PNG gibi formatlarda ise dönüştürme kayıpsızdır ve orijinal kaliteyi korur."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Dönüştürebileceğim maksimum dosya boyutu nedir?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tüm kullanıcılar için hızlı performans sağlamak amacıyla, yüklemeler için makul bir dosya boyutu limiti olabilir. Web kullanımı için tasarlanan çoğu resim bu limitin oldukça altındadır."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Herhangi bir yazılım veya uygulama yüklemem gerekiyor mu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hayır, hiçbir şey yüklemenize gerek yok. Convetta tamamen web tarayıcınızda çalışır. Bu, işlemi hızlı, güvenli ve her cihazdan erişilebilir kılar."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "WEBP formatı nedir ve avantajları nelerdir?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "WEBP, Google tarafından geliştirilen ve web'deki resimler için üstün kayıpsız ve kayıplı sıkıştırma sağlayan modern bir resim formatıdır. WEBP resimleri, JPG ve PNG'lerden önemli ölçüde daha küçüktür, bu da web sitelerinin daha hızlı yüklenmesini sağlar."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Dönüştürülen tüm dosyalarımı birlikte nasıl indirebilirim?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dönüştürme işlemi tamamlandıktan sonra 'Tümünü ZIP Olarak İndir' butonu sunuyoruz. Bu butona tıklamak, dönüştürülen tüm resimlerinizi kolay indirme için tek bir ZIP dosyasında sıkıştıracaktır."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Dönüştürücü mobil telefon ve tabletlerde çalışıyor mu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Evet, resim dönüştürücümüz tamamen duyarlıdır ve akıllı telefonlar, tabletler ve masaüstü bilgisayarlar dahil olmak üzere tüm modern cihazlarda sorunsuz çalışacak şekilde tasarlanmıştır."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Neden masaüstü yazılım yerine online dönüştürücü kullanmalıyım?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Çevrimiçi dönüştürücüler büyük kolaylık sunar. Kurulum veya güncelleme gerektirmezler, onlara her yerden erişebilirsiniz ve bilgisayarınızın kaynaklarını tüketmezler. Hızlı ve kolay dönüştürme görevleri için mükemmeldirler."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Dönüştürme sırasında gizliliğim nasıl korunuyor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Gizliliğiniz her şeyden önemlidir. Çoğu dönüştürme işlemi istemci tarafında (tarayıcınızda) gerçekleştiği için dosyalarınız bilgisayarınızdan bile ayrılmaz. Sunucu taraflı dönüşümler için ise dosyalar işlemden sonra anında silinir. Resimlerinizi kaydetmiyor, saklamıyor veya görüntülemiyoruz."
+          }
+        }
+      ]
+    }
+    </script>
+
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center">
+
+    <header id="main-header" class="bg-white shadow w-full"></header>
+
+  <main class="flex-grow w-full max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8" id="resizer">
+      <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col lg:flex-row gap-8">
+          <div class="lg:w-1/2 flex flex-col">
+              <div class="text-center mb-8">
+                  <h2 class="text-3xl font-bold text-gray-800">Görselleri Boyutlandır</h2>
+                  <p class="text-gray-500 mt-2">Görsel boyutlarını saniyeler içinde ayarlayın.</p>
+              </div>
+
+              <div id="drop-zone" class="border-2 border-dashed border-gray-300 rounded-lg p-10 text-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 flex-grow flex flex-col items-center justify-center">
+                  <input type="file" id="fileInput" class="hidden" accept="image/*" multiple>
+                  <div id="drop-text" class="text-gray-500 font-medium">
+                      Görselleri buraya sürükleyip bırakın veya
+                      <span class="text-blue-500 font-bold">gözatmak için tıklayın</span>
+                  </div>
+              </div>
+
+              <div id="fileList" class="mt-6 hidden">
+                  <h3 class="font-semibold text-gray-700 mb-2">Seçilen Dosyalar:</h3>
+                  <ul class="list-disc list-inside text-gray-600"></ul>
+              </div>
+
+              <div id="resizeControls" class="mt-6 flex flex-col gap-4">
+                  <div class="flex items-center justify-between gap-3">
+                      <div class="w-full">
+                          <label for="widthInput" class="block text-sm font-medium text-gray-700 mb-1">Genişlik (px):</label>
+                          <input type="number" id="widthInput" class="mt-1 block w-full pl-3 pr-2 py-2 text-base border-gray-300 rounded-md shadow-sm">
+                      </div>
+                      <div class="flex-shrink-0 pt-6">
+                          <input type="checkbox" id="aspectRatioLock" class="hidden" checked>
+                          <button id="aspectRatioButton" type="button" class="p-2 rounded-md bg-blue-600 text-white transition-colors duration-200" title="En Boy Oranını Kilitle/Aç">
+                              <svg id="icon-locked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                  <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+                              </svg>
+                              <svg id="icon-unlocked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 hidden">
+                                  <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6zM10 12a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                              </svg>
+                          </button>
+                      </div>
+                      <div class="w-full">
+                          <label for="heightInput" class="block text-sm font-medium text-gray-700 mb-1">Yükseklik (px):</label>
+                          <input type="number" id="heightInput" class="mt-1 block w-full pl-3 pr-2 py-2 text-base border-gray-300 rounded-md shadow-sm">
+                      </div>
+                  </div>
+                  <button id="resizeButton" class="w-full mt-4 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md transition-transform duration-300 hover:scale-105 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                      Boyutlandır
+                  </button>
+              </div>
+          </div>
+
+          <div class="lg:w-1/2 flex flex-col">
+              <div class="text-center mb-8 lg:text-left">
+                  <h2 class="text-3xl font-bold text-gray-800">Boyutlandırılmış Görseller</h2>
+                  <p class="text-gray-500 mt-2">Boyutlandırılmış dosyalarınızı buradan indirin.</p>
+              </div>
+              <div id="results" class="flex-grow hidden">
+                  <div class="flex flex-col sm:flex-row gap-4 mb-4">
+                      <button id="downloadSeparateButton" class="flex-1 px-6 py-3 bg-blue-500 text-white font-medium rounded-lg shadow-md transition-transform duration-300 hover:scale-105 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                          Ayrı Dosyalar Olarak İndir
+                      </button>
+                      <button id="downloadAllButton" class="flex-1 px-6 py-3 bg-green-500 text-white font-medium rounded-lg shadow-md transition-transform duration-300 hover:scale-105 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                          Tümünü ZIP Olarak İndir
+                      </button>
+                  </div>
+                  <div id="result-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </main>
+    
+    <section class="w-full max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-white rounded-2xl shadow-xl mt-8 mb-8">
+        <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">Sıkça Sorulan Sorular</h2>
+        <div id="faq-list">
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Verilerim güvende mi? Dosyalarım bir sunucuya yükleniyor mu?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Gizliliğiniz önceliğimizdir. PNG'den JPG'ye gibi çoğu dönüştürme işlemi doğrudan tarayıcınızda gerçekleşir. ICO veya PDF gibi karmaşık formatlar için dosyanız sunucumuzda işlenir ve dönüştürmeden hemen sonra kalıcı olarak silinir. Dosyalarınızı asla saklamaz veya paylaşmayız.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Hangi resim formatları destekleniyor?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Çevrimiçi resim dönüştürücümüz, JPG, PNG, GIF ve WEBP dahil olmak üzere en popüler formatları desteklemektedir. Dosyalarınızı bu formatlardan herhangi birine veya bu formatlardan dönüştürebilirsiniz.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Bu online resim dönüştürücü tamamen ücretsiz mi?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Evet, Convetta tamamen ücretsiz bir çevrimiçi araçtır. Resimlerinizi dönüştürmek için herhangi bir gizli ücret, abonelik veya kullanım limiti yoktur.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Aynı anda birden fazla resmi dönüştürebilir miyim?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Kesinlikle! Aynı anda birden fazla resim seçip dönüştürebilirsiniz. Bu toplu dönüştürme özelliği, resimlerinizi hızlı ve verimli bir şekilde işlemenizi sağlar.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Dönüştürme sonrası resimlerimin kalitesi düşer mi?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Mümkün olan en yüksek kaliteyi sağlamak için gelişmiş algoritmalar kullanıyoruz. JPG gibi bazı formatlar doğası gereği kayıplı olsa da, kalite düşüşünü en aza indiriyoruz. PNG gibi formatlarda ise dönüştürme kayıpsızdır ve orijinal kaliteyi korur.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Dönüştürebileceğim maksimum dosya boyutu nedir?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Tüm kullanıcılar için hızlı performans sağlamak amacıyla, yüklemeler için makul bir dosya boyutu limiti olabilir. Web kullanımı için tasarlanan çoğu resim bu limitin oldukça altındadır.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Herhangi bir yazılım veya uygulama yüklemem gerekiyor mu?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Hayır, hiçbir şey yüklemenize gerek yok. Convetta tamamen web tarayıcınızda çalışır. Bu, işlemi hızlı, güvenli ve her cihazdan erişilebilir kılar.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">WEBP formatı nedir ve avantajları nelerdir?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>WEBP, Google tarafından geliştirilen ve web'deki resimler için üstün kayıpsız ve kayıplı sıkıştırma sağlayan modern bir resim formatıdır. WEBP resimleri, JPG ve PNG'lerden önemli ölçüde daha küçüktür, bu da web sitelerinin daha hızlı yüklenmesini sağlar.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Dönüştürülen tüm dosyalarımı birlikte nasıl indirebilirim?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Dönüştürme işlemi tamamlandıktan sonra 'Tümünü ZIP Olarak İndir' butonu sunuyoruz. Bu butona tıklamak, dönüştürülen tüm resimlerinizi kolay indirme için tek bir ZIP dosyasında sıkıştıracaktır.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Dönüştürücü mobil telefon ve tabletlerde çalışıyor mu?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Evet, resim dönüştürücümüz tamamen duyarlıdır ve akıllı telefonlar, tabletler ve masaüstü bilgisayarlar dahil olmak üzere tüm modern cihazlarda sorunsuz çalışacak şekilde tasarlanmıştır.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Neden masaüstü yazılım yerine online dönüştürücü kullanmalıyım?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Çevrimiçi dönüştürücüler büyük kolaylık sunar. Kurulum veya güncelleme gerektirmezler, onlara her yerden erişebilirsiniz ve bilgisayarınızın kaynaklarını tüketmezler. Hızlı ve kolay dönüştürme görevleri için mükemmeldirler.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item border border-gray-200 rounded-md mb-4 accordion-active">
+                <div class="accordion-header flex items-center justify-between p-5 text-gray-800 cursor-pointer">
+                    <h3 class="text-xl font-semibold">Dönüştürme sırasında gizliliğim nasıl korunuyor?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="accordion-icon h-6 w-6 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="accordion-content overflow-hidden" style="max-height: 500px;">
+                    <div class="p-5 pt-0">
+                        <p>Gizliliğiniz her şeyden önemlidir. Çoğu dönüştürme işlemi istemci tarafında (tarayıcınızda) gerçekleştiği için dosyalarınız bilgisayarınızdan bile ayrılmaz. Sunucu taraflı dönüşümler için ise dosyalar işlemden sonra anında silinir. Resimlerinizi kaydetmiyor, saklamıyor veya görüntülemiyoruz.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="main-footer" class="bg-white w-full py-6 mt-auto">
+        <div class="max-w-7xl mx-auto text-center text-sm flex flex-col sm:flex-row justify-center items-center gap-3">
+            <p id="footer-rights" class="text-gray-800 dark:text-gray-400">&copy; 2025 Convetta. Tüm hakları saklıdır.</p>
+            <span class="hidden sm:inline text-gray-500 dark:text-gray-600">•</span>
+            <p id="footer-support" class="text-gray-800 dark:text-gray-300">
+                Yardıma mı ihtiyacınız var? 
+                <a href="mailto:destek@convetta.com" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
+                    destek@convetta.com
+                </a>
+            </p>
+        </div>
+    </footer>
+
+
+    <script src="../../assets/js/layout.js?v=1.0.3"></script>
+    <script src="../../assets/js/helper.js?v=1.0.3"></script>
+    <script src="../../assets/js/script-resizer.js?v=1.0.3"></script>
+</body>
+</html>
