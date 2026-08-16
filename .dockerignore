@@ -1,0 +1,13 @@
+.git
+.gitignore
+node_modules
+build
+.svelte-kit
+package-lock.json
+
+README.md
+CLAUDE.md
+Dockerfile
+.dockerignore
+*.log
+.DS_Store

@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	/*
+	 * Poppins yerel olarak sunuluyor (static/fonts). Yalnizca gercekten
+	 * kullanilan agirliklar var; latin ve latin-ext ayri dosyalarda.
+	 */
+	@font-face {
+		font-family: 'Poppins';
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url('/fonts/poppins-400-latin.woff2') format('woff2');
+		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2192, U+2212;
+	}
+	@font-face {
+		font-family: 'Poppins';
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url('/fonts/poppins-400-latin-ext.woff2') format('woff2');
+		unicode-range: U+0100-02BA, U+1E00-1EFF, U+2020, U+20A0-20AB;
+	}
+	@font-face {
+		font-family: 'Poppins';
+		font-style: normal;
+		font-weight: 500;
+		font-display: swap;
+		src: url('/fonts/poppins-500-latin.woff2') format('woff2');
+		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2192, U+2212;
+	}
+	@font-face {
+		font-family: 'Poppins';
+		font-style: normal;
+		font-weight: 500;
+		font-display: swap;
+		src: url('/fonts/poppins-500-latin-ext.woff2') format('woff2');
+		unicode-range: U+0100-02BA, U+1E00-1EFF, U+2020, U+20A0-20AB;
+	}
+	@font-face {
+		font-family: 'Poppins';
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url('/fonts/poppins-600-latin.woff2') format('woff2');
+		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2192, U+2212;
+	}
+	@font-face {
+		font-family: 'Poppins';
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url('/fonts/poppins-600-latin-ext.woff2') format('woff2');
+		unicode-range: U+0100-02BA, U+1E00-1EFF, U+2020, U+20A0-20AB;
+	}
+	@font-face {
+		font-family: 'Poppins';
+		font-style: normal;
+		font-weight: 700;
+		font-display: swap;
+		src: url('/fonts/poppins-700-latin.woff2') format('woff2');
+		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2192, U+2212;
+	}
+	@font-face {
+		font-family: 'Poppins';
+		font-style: normal;
+		font-weight: 700;
+		font-display: swap;
+		src: url('/fonts/poppins-700-latin-ext.woff2') format('woff2');
+		unicode-range: U+0100-02BA, U+1E00-1EFF, U+2020, U+20A0-20AB;
+	}
+
+	html {
+		@apply font-sans antialiased;
+	}
+
+	body {
+		@apply flex min-h-screen flex-col bg-gray-100 text-gray-800 transition-colors duration-300;
+		@apply dark:bg-slate-900 dark:text-slate-100;
+	}
+
+	/* Klavye kullanicisi icin gorunur odak; fare tiklamasinda halka cikmaz. */
+	:where(a, button, select, input, [tabindex]):focus-visible {
+		@apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-gray-100 dark:ring-offset-slate-900;
+	}
+}
+
+@layer components {
+	/* Dokunma hedefi mobilde en az 44x44 px (WCAG 2.5.8). */
+	.tap-target {
+		@apply min-h-[44px] min-w-[44px];
+	}
+
+	.btn {
+		@apply tap-target inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-base font-medium shadow-md transition;
+		@apply disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none;
+	}
+
+	.btn-primary {
+		@apply btn bg-brand-600 text-white hover:bg-brand-700 enabled:hover:scale-[1.02];
+	}
+
+	.card {
+		@apply rounded-2xl bg-white p-6 shadow-xl sm:p-8 dark:bg-slate-800;
+	}
+}
+
+/* Eski statik sitedeki yüzeyler: Tailwind yardımcı sınıfları bileşenlerde
+ * korunuyor, bu kurallar ise iki sürümün ışık/gölge ve koyu tema tonlarını
+ * aynı tutuyor. */
+header,
+#main-header {
+	background: #fff !important;
+	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%) !important;
+	position: relative;
+	z-index: 10;
+}
+
+.dark header,
+.dark #main-header {
+	background: #1e293b !important;
+	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 30%) !important;
+}
+
+footer,
+#main-footer {
+	background: #fff !important;
+	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%) !important;
+	position: relative;
+	z-index: 10;
+}
+
+footer p,
+#main-footer p {
+	color: #111827 !important;
+	font-weight: 500 !important;
+}
+
+footer a,
+#main-footer a {
+	font-weight: 600 !important;
+}
+
+.dark footer,
+.dark #main-footer {
+	background: #1e293b !important;
+	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 30%) !important;
+}
+
+.dark footer p,
+.dark #main-footer p {
+	color: #f1f5f9 !important;
+}
+
+#drop-zone {
+	min-height: 120px;
+	background-color: #fff;
+}
+
+.dark #drop-zone {
+	background-color: #0f172a !important;
+}
+
+.dark #drop-zone:hover {
+	background-color: rgb(59 130 246 / 10%) !important;
+}
+
+#result-list .bg-gray-50 {
+	border: 1px solid #e5e7eb;
+	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%);
+}
+
+.dark #result-list .bg-gray-50 {
+	background-color: #1e293b !important;
+	border-color: #334155;
+	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 30%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+
+	.btn:hover {
+		transform: none !important;
+	}
+}
+
+/* Tema değişirken tüm bileşenler tek bir zaman çizelgesini kullanır. Bu sınıf
+ * yalnızca tema düğmesine basıldığında kısa süreliğine kök elemana eklenir. */
+.theme-switching,
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+	transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform !important;
+	transition-duration: 150ms !important;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+}

@@ -1,0 +1,15 @@
+# https://www.convetta.com/robots.txt
+
+# Tum arama ve AI tarayicilarina izin verilir (GPTBot, ClaudeBot, PerplexityBot,
+# Google-Extended, OAI-SearchBot dahil) - AI aramalarinda gorunurluk hedeflenmistir.
+#
+# Content-Signal, tarama iznini kaldirmadan icerigin nasil kullanilabilecegini
+# beyan eder. ai-train=no, Avrupa Birligi 2019/790 sayili direktifinin 4. maddesi
+# kapsamindaki haklarin acik bir sekilde sakli tutulmasidir.
+
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+Disallow: /api/
+
+Sitemap: https://www.convetta.com/sitemap.xml
