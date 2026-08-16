@@ -61,6 +61,13 @@ export const handle: Handle = async ({ event, resolve }) => {
 function redirectToCanonical(url: URL, request: Request) {
 	const { pathname, search } = url;
 
+	// API ucu kanoniklestirmenin disinda: bu kurallar arama motoru icin var,
+	// /api dizine girmiyor (bkz. robots.txt) ve yonlendirme burada islevi
+	// bozuyor. POST bir 301 aldiginda govde dusuyor; ustelik asagidaki egik
+	// cizgi kurali ile SvelteKit'in kendi normallestirmesi ters yonde
+	// calisiyordu: /api/convert -> 301 -> /api/convert/ -> 308 -> /api/convert.
+	if (pathname === '/api' || pathname.startsWith('/api/')) return;
+
 	const host = (request.headers.get('host') ?? '').split(':')[0];
 	if (REDIRECT_HOSTS.has(host)) {
 		const proto = request.headers.get('x-forwarded-proto') === 'http' ? 'http' : 'https';

@@ -81,8 +81,20 @@
 -->
 <svelte:window onpaste={onPaste} />
 
+<!--
+	Kartin taban yuksekligi burada, tek yerde: dönüştürücü ve boyutlandirici
+	ayni kabugu kullandigi icin iki sayfa da ayni olcude aciliyor. Olcu
+	olmadan kart yuksekligini controls belirliyordu ve boyutlandiricinin iki
+	girdisi yaninda dönüştürücünün tek satirlik secimi kisa kaliyordu.
+
+	Artan alan boslukta durmuyor: DropZone flex-grow tasidigi icin birakma
+	alani buyuyor. Dosya eklendiginde iki kart da bu olcuyu asar; o durumda
+	yukseklikleri esitlemek zaten mumkun degil, icerik farkli.
+-->
 <main class="mx-auto w-full max-w-7xl flex-grow px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-	<div class="flex flex-col gap-8 rounded-2xl bg-white p-8 shadow-xl lg:flex-row dark:bg-slate-800">
+	<div
+		class="flex min-h-[34rem] flex-col gap-8 rounded-2xl bg-white p-8 shadow-xl lg:flex-row dark:bg-slate-800"
+	>
 		<div class="flex flex-col lg:w-1/2">
 			<div class="mb-8 text-center">
 				<h1 class="text-3xl font-bold text-gray-800 dark:text-white">{title}</h1>
