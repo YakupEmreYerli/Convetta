@@ -1,5 +1,30 @@
+# Bagimliliklar ve uretilen ciktilar
 node_modules/
 package-lock.json
 build/
 .svelte-kit/
+coverage/
+
+# Gizli bilgiler: hicbir .env dosyasi depoya girmemeli. Ornek dosya lazim
+# olursa .env.example olarak eklenir, o bilerek disarida birakiliyor.
+.env
+.env.*
+!.env.example
+
+# Claude Code'un yerel dosyalari. Proje geneli ayar, komut ya da beceri
+# eklendiginde (.claude/settings.json, .claude/skills/) onlar paylasilabilir;
+# burada yalnizca makineye ve oturuma ozel olanlar disarida birakiliyor.
+.claude/RESUME.md
+.claude/launch.json
+.claude/settings.local.json
+
+# Editor ve isletim sistemi artiklari
+.vscode/
+.idea/
+*.swp
 .DS_Store
+Thumbs.db
+
+# Gunlukler
+*.log
+npm-debug.log*

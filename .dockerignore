@@ -11,3 +11,10 @@ Dockerfile
 .dockerignore
 *.log
 .DS_Store
+
+# Gelistirme artiklari: COPY . . bunlari da imaja tasirdi.
+.claude
+.env
+.env.*
+.vscode
+.idea
