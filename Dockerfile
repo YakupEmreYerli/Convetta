@@ -56,6 +56,10 @@ WORKDIR /app
 COPY --from=builder --chown=node:node /src/build ./build
 COPY --from=builder --chown=node:node /src/node_modules ./node_modules
 COPY --from=builder --chown=node:node /src/package.json ./package.json
+# Kendi sunucu girdimiz: adapter-node'un build/index.js'i yerine bu calisiyor,
+# cunku non-www -> www yonlendirmesinin prerender edilmis dosyalar sunulmadan
+# once yapilmasi gerekiyor (bkz. server/canonical.js).
+COPY --from=builder --chown=node:node /src/server ./server
 
 # Uygulama dosyalarina yazma izni yok: calisma zamaninda hicbir sey diske
 # yazmiyor (ICO gecici dosyasi /tmp'e gidiyor).
@@ -78,4 +82,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
   CMD node -e "fetch('http://127.0.0.1:'+(process.env.PORT||8787)+'/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["node", "build/index.js"]
+CMD ["node", "server/index.js"]
