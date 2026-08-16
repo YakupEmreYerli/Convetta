@@ -167,17 +167,6 @@ footer a,
 	background-color: rgb(59 130 246 / 10%) !important;
 }
 
-#result-list .bg-gray-50 {
-	border: 1px solid #e5e7eb;
-	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%);
-}
-
-.dark #result-list .bg-gray-50 {
-	background-color: #1e293b !important;
-	border-color: #334155;
-	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 30%);
-}
-
 @media (prefers-reduced-motion: reduce) {
 	*,
 	*::before,

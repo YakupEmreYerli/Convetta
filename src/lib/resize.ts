@@ -24,10 +24,33 @@ export function matchAspect(value: number, ratio: number, edge: 'width' | 'heigh
 	return Math.max(1, Math.round(other));
 }
 
+/**
+ * Canvas yalnizca JPEG, PNG ve WEBP uretebilir. Kaynak bunlardan biriyse
+ * formati koruyoruz; GIF, BMP ve AVIF ise PNG olarak kodlanir (kayipsiz oldugu
+ * icin boyutlandirmada detay kaybettirmez).
+ */
+export function outputMime(fileType: string): string {
+	return fileType === 'image/jpeg' || fileType === 'image/webp' ? fileType : 'image/png';
+}
+
+const EXTENSION_BY_MIME: Record<string, string> = {
+	'image/jpeg': 'jpg',
+	'image/png': 'png',
+	'image/webp': 'webp'
+};
+
+/**
+ * Uzanti her zaman gercekten kodlanan turden turetilir. Girdinin uzantisini
+ * korumak yanlisti: bir GIF, icerigi PNG olmasina ragmen .gif adiyla iniyor ve
+ * dosya adi icerikle celisiyordu.
+ */
+export function extensionForMime(mime: string): string {
+	return EXTENSION_BY_MIME[mime] ?? 'png';
+}
+
 /** Cikti adina yeni olculeri ekler: photo.png -> photo_800x600.png */
-export function resizedName(fileName: string, { width, height }: Dimensions): string {
-	const extension = fileName.includes('.') ? fileName.slice(fileName.lastIndexOf('.') + 1) : 'png';
-	return `${baseName(fileName)}_${width}x${height}.${extension}`;
+export function resizedName(fileName: string, { width, height }: Dimensions, mime: string): string {
+	return `${baseName(fileName)}_${width}x${height}.${extensionForMime(mime)}`;
 }
 
 /**
@@ -57,11 +80,11 @@ export async function resizeImage(file: File, target: Dimensions): Promise<Blob>
 	ctx.drawImage(bitmap, 0, 0, target.width, target.height);
 	bitmap.close();
 
-	// JPEG disinda kalite parametresi yok sayilir; kaynak tipini korumak
-	// dosyanin uzantisiyla iceriginin tutarli kalmasini saglar.
-	const mime = file.type === 'image/jpeg' || file.type === 'image/webp' ? file.type : 'image/png';
+	// JPEG disinda kalite parametresi yok sayilir. Dosya adinin uzantisi
+	// istenene degil donen blob'un gercek turune gore veriliyor; toBlob
+	// destegi olmayan bir MIME istendiginde sessizce PNG dondurebiliyor.
 	const blob = await new Promise<Blob | null>((resolve) =>
-		canvas.toBlob(resolve, mime, 0.92)
+		canvas.toBlob(resolve, outputMime(file.type), 0.92)
 	);
 	if (!blob) throw new ConversionError('encode');
 	return blob;

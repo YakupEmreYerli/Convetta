@@ -2,7 +2,7 @@
 	import JobShell from './JobShell.svelte';
 	import { getLocale } from '$lib/state/locale.svelte';
 	import { ConverterState } from '$lib/state/converter.svelte';
-	import { TARGET_FORMATS, type TargetFormat } from '$lib/formats';
+	import { isCanvasFormat, TARGET_FORMATS, type TargetFormat } from '$lib/formats';
 
 	const locale = getLocale();
 	const converterState = new ConverterState();
@@ -31,7 +31,7 @@
 >
 	{#snippet controls()}
 		<div class="mt-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
-			<div class="w-full sm:w-40">
+			<div class="w-full sm:w-72">
 				<label
 					for="formatSelect"
 					class="mb-1 block whitespace-nowrap text-sm font-medium text-gray-700 dark:text-slate-200"
@@ -48,7 +48,14 @@
 						disabled={converterState.busy}
 						onclick={() => (formatOpen = !formatOpen)}
 					>
-						<span>{converterState.format.toUpperCase()}</span>
+						<span class="flex items-baseline gap-2">
+							<span>{converterState.format.toUpperCase()}</span>
+							<span class="text-[11px] font-normal text-gray-500 dark:text-slate-400">
+								{isCanvasFormat(converterState.format)
+									? locale.dict.options.inBrowser
+									: locale.dict.options.onServer}
+							</span>
+						</span>
 						<svg class="h-4 w-4 text-gray-500 transition-transform {formatOpen ? 'rotate-180' : ''} dark:text-slate-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
 							<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
 						</svg>
@@ -63,13 +70,27 @@
 									class="flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-sm font-medium transition-colors {converterState.format === value ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-slate-200 dark:hover:bg-slate-700 dark:hover:text-white'}"
 									onclick={() => chooseFormat(value)}
 								>
-									{value.toUpperCase()}
-									{#if converterState.format === value}<span aria-hidden="true">✓</span>{/if}
+									<span>{value.toUpperCase()}</span>
+									<span class="flex items-center gap-2">
+										<!-- Dosyanin cihazdan cikip cikmadigi, secim yapilmadan once gorunuyor. -->
+										<span class="text-[11px] font-normal opacity-80">
+											{isCanvasFormat(value)
+												? locale.dict.options.inBrowser
+												: locale.dict.options.onServer}
+										</span>
+										{#if converterState.format === value}<span aria-hidden="true">✓</span>{/if}
+									</span>
 								</button>
 							{/each}
 						</div>
 					{/if}
 				</div>
+				{#if !isCanvasFormat(converterState.format)}
+					<!-- Dosya sunucuya gidecekse kullanici bunu dönüştürmeden önce görmeli. -->
+					<p class="mt-2 text-xs leading-5 text-gray-500 dark:text-slate-400">
+						{locale.dict.options.serverNote}
+					</p>
+				{/if}
 			</div>
 
 			<button

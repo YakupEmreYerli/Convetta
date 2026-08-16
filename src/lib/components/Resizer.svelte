@@ -39,6 +39,7 @@
 						value={state.width}
 						disabled={state.busy}
 						oninput={(e) => state.setWidth(Number(e.currentTarget.value))}
+						onchange={() => state.commitWidth()}
 					/>
 				</div>
 
@@ -50,6 +51,7 @@
 							: 'bg-gray-300 text-gray-700 dark:bg-slate-600 dark:text-slate-100'}"
 						title={locale.dict.resizer.lockRatio}
 						aria-label={locale.dict.resizer.lockRatio}
+						aria-describedby="lockHint"
 						aria-pressed={state.lockRatio}
 						disabled={state.busy}
 						onclick={() => state.toggleLock()}
@@ -91,8 +93,28 @@
 						value={state.height}
 						disabled={state.busy}
 						oninput={(e) => state.setHeight(Number(e.currentTarget.value))}
+						onchange={() => state.commitHeight()}
 					/>
 				</div>
+			</div>
+
+			<!--
+				Kilit dugmesi tek basina bir ikondu ve ne yaptigi anlasilmiyordu;
+				durumu artik yazili olarak da bildiriliyor. Orijinal olcu ise
+				kullanici hedef genisligi neye gore sectigini bilsin diye var.
+			-->
+			<div class="-mt-2 flex flex-col gap-1 text-xs leading-5 text-gray-500 dark:text-slate-400">
+				<p id="lockHint">
+					{state.lockRatio ? locale.dict.resizer.lockRatioOn : locale.dict.resizer.lockRatioOff}
+				</p>
+				{#if state.originalWidth > 0}
+					<p class="font-medium text-gray-600 dark:text-slate-300">
+						{locale.t((d) => d.resizer.originalSize, {
+							width: state.originalWidth,
+							height: state.originalHeight
+						})}
+					</p>
+				{/if}
 			</div>
 
 			<button

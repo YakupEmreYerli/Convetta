@@ -8,7 +8,13 @@ import {
 } from './formats';
 
 /** Ceviri anahtarina karsilik gelen hata kodu; metin katmani UI'da eklenir. */
-export type ConversionErrorCode = 'notImage' | 'tooLarge' | 'decode' | 'encode' | 'server';
+export type ConversionErrorCode =
+	| 'notImage'
+	| 'tooLarge'
+	| 'decode'
+	| 'encode'
+	| 'server'
+	| 'unavailable';
 
 export class ConversionError extends Error {
 	readonly code: ConversionErrorCode;
@@ -107,6 +113,11 @@ async function convertOnServer(file: File, format: TargetFormat): Promise<Conver
 		throw new ConversionError('server');
 	}
 
+	// 429 (hız sınırı) ve 503 (kuyruk dolu) geçici durumlar: kullanıcıya
+	// "başarısız oldu" demek yanıltıcı olur, birazdan tekrar denemesi yeterli.
+	if (response.status === 429 || response.status === 503) {
+		throw new ConversionError('unavailable');
+	}
 	if (!response.ok) throw new ConversionError('server');
 
 	const blob = await response.blob();

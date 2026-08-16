@@ -5,9 +5,9 @@
  */
 export const en = {
 	meta: {
-		title: 'Convetta — Free Online Image Converter',
+		title: 'Free Online Image Converter — JPG, PNG, WEBP & GIF | Convetta',
 		description:
-			'Convert JPG, PNG and WEBP images right in your browser. No uploads, no sign-up, completely free.'
+			'Convert JPG, PNG, WEBP and GIF images online for free. Convert several files at once and download them as a ZIP. JPG, PNG and WEBP never leave your browser.'
 	},
 	nav: {
 		home: 'Homepage',
@@ -17,8 +17,8 @@ export const en = {
 		language: 'Language'
 	},
 	hero: {
-		title: 'Convert Your Images Instantly',
-		subtitle: 'Convert JPG, PNG, WEBP, and GIF in seconds.'
+		title: 'Free Online Image Converter',
+		subtitle: 'Convert JPG, PNG, WEBP and GIF in seconds. No account, nothing to install.'
 	},
 	drop: {
 		label: 'Choose images to convert',
@@ -69,23 +69,123 @@ export const en = {
 		decode: 'The image could not be read. It may be corrupted.',
 		encode: 'Your browser cannot produce this format.',
 		server: 'Server-side conversion failed. Please try again.',
+		unavailable: 'The server is busy right now. Wait a moment and try again.',
 		zip: 'The ZIP file could not be created.',
 		clipboard: 'The pasted content is not an image. Copy an image and try again.'
 	},
 	resizer: {
-		metaTitle: 'Convetta — Free Online Image Resizer',
+		metaTitle: 'Free Online Image Resizer — Resize JPG, PNG & WEBP | Convetta',
 		metaDescription:
-			'Resize JPG, PNG and WEBP images in your browser. Keep the aspect ratio, batch resize and download as ZIP.',
-		title: 'Resize Your Images',
-		subtitle: 'Adjust image dimensions in seconds.',
+			'Resize JPG, PNG and WEBP images online for free. Set the width and height in pixels, keep the aspect ratio locked so nothing stretches, and resize a whole batch at once — all inside your browser.',
+		title: 'Free Online Image Resizer',
+		subtitle: 'Set a new width and height in pixels. Nothing is uploaded — resizing runs in your browser.',
 		resultsSubtitle: 'Download your resized files here.',
 		width: 'Width (px)',
 		height: 'Height (px)',
 		lockRatio: 'Lock aspect ratio',
+		lockRatioOn: 'Aspect ratio locked — the other side follows automatically.',
+		lockRatioOff: 'Aspect ratio unlocked — entering both sides freely can stretch the image.',
+		originalSize: 'Original: {width} × {height} px',
 		resize: 'Resize',
 		resizing: 'Resizing…',
 		results: 'Resized Images',
-		invalidSize: 'Enter a width and height between 1 and 10000 pixels.'
+		invalidSize: 'Enter a width and height between 1 and 10000 pixels.',
+		trust: [
+			{
+				title: 'Nothing is uploaded',
+				body: 'Every resize is done by your own browser. Your images are never sent to us, so there is nothing for us to store.'
+			},
+			{
+				title: 'Proportions kept',
+				body: 'The aspect ratio is locked by default and read from your first image, so typing one side fills in the other.'
+			},
+			{
+				title: 'Whole batches at once',
+				body: 'Resize any number of images to the same dimensions and download them together as a ZIP.'
+			}
+		],
+		how: {
+			title: 'How to resize an image',
+			steps: [
+				{
+					title: 'Add your image',
+					body: 'Drag it onto the drop zone, browse for it, or paste it from the clipboard. Up to 20 MB per file.'
+				},
+				{
+					title: 'Enter the new dimensions',
+					body: 'Type the width in pixels. With the lock on, the height is worked out for you from the original proportions.'
+				},
+				{
+					title: 'Resize and download',
+					body: 'Save the result, or take the whole batch as a single ZIP. New dimensions are added to the file name.'
+				}
+			]
+		},
+		aspect: {
+			title: 'What does “keep aspect ratio” mean?',
+			body: 'The aspect ratio is the relationship between an image’s width and its height. Keeping it locked while you resize is what stops the picture from being stretched or squashed: a 1920 × 1080 image is 16:9, and 1280 × 720 is the same 16:9, which is why it still looks right. Convetta reads the ratio from the first image you add and keeps it locked unless you turn the lock off.',
+			exampleTitle: 'The same proportions at different sizes',
+			columns: {
+				original: 'Original',
+				resized: 'Resized to',
+				ratio: 'Aspect ratio',
+				use: 'Typical use'
+			},
+			rows: [
+				{ original: '1920 × 1080', resized: '1280 × 720', ratio: '16:9', use: 'Widescreen photos and video stills' },
+				{ original: '1200 × 1200', resized: '600 × 600', ratio: '1:1', use: 'Square profile and product images' },
+				{ original: '1080 × 1350', resized: '720 × 900', ratio: '4:5', use: 'Portrait social posts' },
+				{ original: '3000 × 2000', resized: '1500 × 1000', ratio: '3:2', use: 'Photos straight from a camera' }
+			]
+		},
+		dimensions: {
+			title: 'What image dimensions actually are',
+			body: 'Dimensions describe how many pixels wide and tall an image is. A 1920 × 1080 image is 1920 pixels across and 1080 pixels down. Changing the dimensions changes how much detail the image contains — it does not change the file format, and it is not the same thing as compressing the file.',
+			sections: [
+				{
+					heading: 'Resizing is not converting',
+					body: 'Resizing changes the pixel dimensions. Converting changes the file format, for example PNG to JPG or JPG to WEBP. Convetta keeps the format when it resizes: a JPG stays a JPG and a WEBP stays a WEBP. Anything else is saved as PNG so that no quality is thrown away in the process.'
+				},
+				{
+					heading: 'Resizing is not compressing',
+					body: 'Compression shrinks the file size in KB or MB while leaving the width and height alone. Resizing shrinks the width and height, which usually reduces the file size as a side effect. If an image is too big in pixels, resize it. If the dimensions are right but the file is still heavy, that is a compression problem.'
+				}
+			],
+			convertLink: 'Need a different file format? Use the image converter'
+		},
+		faq: {
+			title: 'Frequently Asked Questions',
+			items: [
+				{
+					q: 'Are my images uploaded when I resize them?',
+					a: 'No. Resizing is done entirely by your own browser with the Canvas API, so the image never leaves your device. There is no upload step at all, which is also why resizing keeps working on a poor connection.'
+				},
+				{
+					q: 'Does resizing an image reduce quality?',
+					a: 'Making an image smaller usually looks fine, because you are asking for fewer pixels than the original has — Convetta uses high-quality smoothing when scaling down. Making an image larger than its original size is a different matter: resizing cannot invent detail that was never captured, so an enlarged image tends to look soft.'
+				},
+				{
+					q: 'How do I resize an image without stretching it?',
+					a: 'Leave the aspect ratio lock on, which is how Convetta starts. Type the width you want and the height is calculated from the original proportions. Turn the lock off only when you deliberately want dimensions that do not match the original shape.'
+				},
+				{
+					q: 'Can I resize several images at once?',
+					a: 'Yes. Every selected image is resized to the same width and height in one pass, and you can download the results individually or as a single ZIP. The aspect ratio lock follows the first image you added, so a mixed batch is best resized with the lock off.'
+				},
+				{
+					q: 'Which formats can I resize?',
+					a: 'JPG, PNG, WEBP, GIF, BMP and AVIF, up to 20 MB each. JPG and WEBP files come back in the same format; everything else is returned as PNG.'
+				},
+				{
+					q: 'Can I resize to exact pixel dimensions?',
+					a: 'Yes. Width and height are entered in pixels and any whole number from 1 to 10000 is accepted. Turn the lock off first if the exact size you need has different proportions from the original.'
+				},
+				{
+					q: 'What is the difference between resizing and compressing?',
+					a: 'Resizing changes the pixel dimensions, such as 1920 × 1080 down to 1280 × 720. Compressing reduces the file size in KB or MB while keeping those dimensions. Resizing an image smaller normally reduces the file size too, but it is not the same operation.'
+				}
+			]
+		}
 	},
 	privacy: {
 		metaTitle: 'Privacy Policy — Convetta',
@@ -95,7 +195,7 @@ export const en = {
 		sections: [
 			{
 				heading: 'Your images',
-				body: 'JPEG, PNG and WEBP conversions and all resizing happen entirely inside your browser. Those files are never uploaded, never stored and never seen by us. GIF, ICO and PDF conversions have no browser encoder: the file is sent to our server over an encrypted connection, converted in memory, returned to you and discarded. Nothing is written to a database or a permanent disk.'
+				body: 'JPEG, PNG and WEBP conversions and all resizing happen entirely inside your browser. Those files are never uploaded, never stored and never seen by us. GIF, ICO and PDF conversions have no browser encoder: the file is sent to our server over an encrypted connection, converted in memory, returned to you and discarded. GIF and PDF are streamed straight through the converter and never touch the disk. ICO is the single exception, because that encoder cannot write to a stream: the result is written to a temporary file that is deleted as soon as your download has been sent. Nothing is written to a database or kept after the request.'
 			},
 			{
 				heading: 'Data we collect',
@@ -116,56 +216,154 @@ export const en = {
 		body: 'The page you are looking for does not exist or has moved.',
 		home: 'Back to the converter'
 	},
+	trust: {
+		title: 'Why use Convetta?',
+		items: [
+			{
+				title: 'Private by design',
+				body: 'JPG, PNG and WEBP conversions run inside your browser. Those files are never uploaded, so there is nothing for us to store.'
+			},
+			{
+				title: 'Built for batches',
+				body: 'Add as many images as you like, convert them in one pass and download the whole set as a single ZIP.'
+			},
+			{
+				title: 'No account, no install',
+				body: 'Free to use with no sign-up and nothing to download. Works in any modern desktop or mobile browser.'
+			}
+		]
+	},
+	how: {
+		title: 'How to convert an image',
+		steps: [
+			{
+				title: 'Add your images',
+				body: 'Drag files onto the drop zone, browse for them, or paste an image straight from the clipboard. Up to 20 MB per file.'
+			},
+			{
+				title: 'Choose the target format',
+				body: 'Pick JPG, PNG, WEBP, GIF, ICO or PDF. Each option says whether it is produced in your browser or on our server.'
+			},
+			{
+				title: 'Convert',
+				body: 'Every selected file is converted in one pass and the original proportions are always preserved.'
+			},
+			{
+				title: 'Download',
+				body: 'Save the files one by one, or take the whole batch as a single ZIP.'
+			}
+		]
+	},
+	guide: {
+		title: 'Choose the right image format',
+		intro:
+			'The right target format depends on one question: do you need transparency, animation, or the smallest possible file? Here is what each format Convetta produces actually gives you.',
+		columns: {
+			format: 'Format',
+			bestFor: 'Best for',
+			transparency: 'Transparency',
+			compression: 'Compression',
+			where: 'Converted'
+		},
+		inBrowser: 'In your browser',
+		onServer: 'On our server',
+		rows: [
+			{
+				format: 'JPG',
+				bestFor: 'Photographs and photo-heavy pages',
+				transparency: 'No — transparent areas become white',
+				compression: 'Lossy'
+			},
+			{
+				format: 'PNG',
+				bestFor: 'Screenshots, logos, line art, sharp edges',
+				transparency: 'Yes, with soft edges',
+				compression: 'Lossless'
+			},
+			{
+				format: 'WEBP',
+				bestFor: 'Websites that want smaller files at the same quality',
+				transparency: 'Yes, with soft edges',
+				compression: 'Lossy'
+			},
+			{
+				format: 'GIF',
+				bestFor: 'Very simple graphics with few colours',
+				transparency: 'On or off only, no soft edges',
+				compression: 'Lossless, limited to 256 colours'
+			},
+			{
+				format: 'ICO',
+				bestFor: 'Favicons and Windows application icons',
+				transparency: 'Yes',
+				compression: 'Lossless, scaled down to 256 px'
+			},
+			{
+				format: 'PDF',
+				bestFor: 'Sending an image on as a document',
+				transparency: 'Flattened',
+				compression: 'The image is embedded as it is'
+			}
+		],
+		note: 'Convetta produces still images. Converting an animated GIF to JPG, PNG or WEBP keeps its first frame.',
+		resizeLink: 'Only need different dimensions? Use the image resizer'
+	},
+	processing: {
+		title: 'How Convetta handles your files',
+		sections: [
+			{
+				heading: 'In your browser — JPG, PNG, WEBP',
+				body: 'Your browser decodes the image and re-encodes it with the Canvas API. The file is never sent anywhere, which is also why the conversion keeps working on a slow connection. Every resize works the same way.'
+			},
+			{
+				heading: 'On our server — GIF, ICO, PDF',
+				body: 'No browser can encode these three, so the image travels over an encrypted connection to our server and is converted with ImageMagick. GIF and PDF are streamed straight through the converter and never touch the disk. ICO is the exception: that encoder cannot write to a stream, so the result goes to a temporary file that is deleted as soon as your download is sent. Nothing is written to a database and we keep no copy.'
+			},
+			{
+				heading: 'The limits we actually enforce',
+				body: '20 MB per file, checked in your browser before anything is sent. Server-side conversions are cut off after 20 seconds, are limited to 30 requests per minute per IP address, and are checked byte by byte to confirm the upload really is an image.'
+			},
+			{
+				heading: 'What we do not do',
+				body: 'No account, no tracking or advertising cookies, and no third-party scripts, fonts or analytics. Your language and theme choice stay in your own browser.'
+			}
+		],
+		privacyLink: 'Read the full privacy policy'
+	},
 	faq: {
 		title: 'Frequently Asked Questions',
 		items: [
 			{
-				q: 'Is my data safe? Are my files uploaded to a server?',
-				a: 'Your privacy is our priority. Most conversions (like PNG to JPG) happen directly in your browser. For formats the browser cannot produce (GIF, ICO, PDF), your file is processed on our server and is permanently deleted immediately after conversion. We never store or share your files.'
+				q: 'Are my files uploaded to a server?',
+				a: 'It depends on the target format. JPG, PNG and WEBP are encoded by your own browser, so those files never leave your device. GIF, ICO and PDF have no browser encoder: the image is sent to our server over an encrypted connection, converted in memory, returned to you and discarded. We keep no copy of it and store nothing in a database.'
 			},
 			{
-				q: 'What image formats are supported for conversion?',
-				a: 'Our online image converter supports the most popular formats, including JPG, PNG, GIF, and WEBP. You can convert your files to and from any of these formats.'
+				q: 'What is the maximum file size?',
+				a: '20 MB per image. Your browser checks the size before anything is uploaded, so an oversized file is rejected immediately instead of failing halfway through. There is no limit on how many images you convert.'
 			},
 			{
-				q: 'Is this online image converter completely free?',
-				a: 'Yes, Convetta is a completely free online tool. There are no hidden fees, subscriptions, or usage limits for converting your images.'
+				q: 'Which formats can I convert between?',
+				a: 'You can upload JPG, PNG, WEBP, GIF, BMP and AVIF files, and convert them to JPG, PNG, WEBP, GIF, ICO or PDF.'
 			},
 			{
-				q: 'Can I convert multiple images at once?',
-				a: 'Absolutely! You can select and convert multiple images at the same time. This bulk conversion feature allows you to process your images quickly and efficiently.'
+				q: 'Will converting PNG to JPG remove transparency?',
+				a: 'Yes. JPG has no transparency channel, so every transparent area is filled with white before encoding. If you need to keep transparency, convert to PNG or WEBP instead.'
 			},
 			{
-				q: 'Will the quality of my images decrease after conversion?',
-				a: 'We use advanced algorithms to ensure the highest possible quality. While some formats (like JPG) are naturally lossy, we minimize any quality decrease. For formats like PNG, the conversion is lossless, preserving the original quality.'
+				q: 'Does converting reduce image quality?',
+				a: 'PNG is lossless: the pixels come out exactly as they went in. JPG and WEBP are lossy formats, so some image data is discarded by design — Convetta encodes them at quality 92, which is high enough that the difference is hard to see at normal viewing size. Converting the same file back and forth between lossy formats will degrade it each time.'
 			},
 			{
-				q: 'What is the maximum file size I can convert?',
-				a: 'To ensure fast performance for all users, there might be a reasonable file size limit for uploads. Most images intended for web use fall well within this limit.'
+				q: 'Can I convert several images at once?',
+				a: 'Yes. Select or drop as many images as you like and they are converted in one pass. When they are ready you can download them individually or as a single ZIP.'
 			},
 			{
-				q: 'Do I need to install any software or application?',
-				a: 'No, you do not need to install anything. Convetta works entirely in your web browser. This makes the process fast, secure, and accessible from any device.'
+				q: 'Is Convetta free?',
+				a: 'Yes, and there is no account to create. The only limits are technical ones: 20 MB per file, and server-side conversions are rate limited so that one visitor cannot take over the queue.'
 			},
 			{
-				q: 'What is the WEBP format and what are its advantages?',
-				a: 'WEBP is a modern image format developed by Google that provides superior lossless and lossy compression for images on the web. WEBP images are significantly smaller than JPGs and PNGs, leading to faster website load times.'
-			},
-			{
-				q: 'How can I download all my converted files together?',
-				a: "After the conversion is complete, we provide a 'Download All as ZIP' button. Clicking this button will compress all your converted images into a single ZIP file for easy downloading."
-			},
-			{
-				q: 'Does the converter work on mobile phones and tablets?',
-				a: 'Yes, our image converter is fully responsive and designed to work seamlessly on all modern devices, including smartphones, tablets, and desktop computers.'
-			},
-			{
-				q: 'Why use an online converter instead of desktop software?',
-				a: "Online converters offer great convenience. There's no need for installation or updates, you can access them from anywhere, and they don't use up your computer's resources. They are perfect for quick and easy conversion tasks."
-			},
-			{
-				q: 'How is my privacy protected during conversion?',
-				a: 'Your privacy is paramount. Since most conversions happen client-side (in your browser), your files don\'t even leave your computer. For server-side conversions, files are deleted instantly after processing. We do not log, store, or view your images.'
+				q: 'Does it work on phones and tablets?',
+				a: 'Yes. The converter runs in any modern mobile browser. Very large images are limited by the memory your phone can give the browser rather than by Convetta.'
 			}
 		]
 	},

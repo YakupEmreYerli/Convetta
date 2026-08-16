@@ -17,6 +17,7 @@
 		resultsSubtitle: string;
 		/** Islem duzeyine ozel ayarlar ve ana buton. */
 		controls?: Snippet;
+		/** Dosya listesi degistiginde cagrilir (ekleme, kaldirma, temizleme). */
 		onfiles?: () => void;
 	}
 
@@ -91,7 +92,18 @@
 			<DropZone onfiles={handleFiles} disabled={state.busy} />
 
 			{#if state.files.length > 0}
-				<SelectedFiles files={state.files} />
+				<SelectedFiles
+					files={state.files}
+					disabled={state.busy}
+					onremove={(id) => {
+						state.remove(id);
+						onfiles?.();
+					}}
+					onclear={() => {
+						state.clearFiles();
+						onfiles?.();
+					}}
+				/>
 			{/if}
 
 		{@render controls?.()}

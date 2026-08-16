@@ -21,6 +21,8 @@ export interface JobSuccess {
 	name: string;
 	sourceName: string;
 	url: string;
+	/** Ciktinin gercek turu; onizlemenin gosterilebilirligi buna bakiyor. */
+	mime: string;
 	size: number;
 	sourceSize: number;
 	width: number;
@@ -181,6 +183,7 @@ export abstract class FileJobState {
 						name: uniqueName(output.name, taken),
 						sourceName: item.file.name,
 						url: URL.createObjectURL(output.blob),
+						mime: output.blob.type,
 						size: output.blob.size,
 						sourceSize: item.file.size,
 						width: output.width ?? 0,
