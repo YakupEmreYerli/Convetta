@@ -31,17 +31,17 @@ describe('stripLocale', () => {
 
 describe('localizePath', () => {
 	it('varsayilan dilde onek eklemez', () => {
-		expect(localizePath('/en/resizer', 'tr')).toBe('/resizer');
+		expect(localizePath('/en/resizer', 'tr')).toBe('/resizer/');
 		expect(localizePath('/en', 'tr')).toBe('/');
 	});
 
 	it('digerlerinde onek ekler', () => {
-		expect(localizePath('/resizer', 'en')).toBe('/en/resizer');
-		expect(localizePath('/', 'en')).toBe('/en');
+		expect(localizePath('/resizer', 'en')).toBe('/en/resizer/');
+		expect(localizePath('/', 'en')).toBe('/en/');
 	});
 
 	it('ayni dile donusturmek adresi degistirmez', () => {
-		expect(localizePath('/en/privacy', 'en')).toBe('/en/privacy');
-		expect(localizePath('/privacy', 'tr')).toBe('/privacy');
+		expect(localizePath('/en/privacy', 'en')).toBe('/en/privacy/');
+		expect(localizePath('/privacy', 'tr')).toBe('/privacy/');
 	});
 });

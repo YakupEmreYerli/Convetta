@@ -5,6 +5,7 @@ import type { LayoutLoad } from './$types';
 // zamani gerektiriyor (bkz. routes/api/convert/+server.ts).
 export const prerender = true;
 export const ssr = true;
+export const trailingSlash = 'always';
 
 /**
  * Dil, adres onekinden okunuyor ve sunucu ile istemci tarafinda ayni sonucu

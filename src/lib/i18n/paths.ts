@@ -26,6 +26,6 @@ export function stripLocale(pathname: string): string {
 /** Ayni sayfanin baska dildeki adresi. */
 export function localizePath(pathname: string, locale: Locale): string {
 	const rest = stripLocale(pathname);
-	if (locale === DEFAULT_LOCALE) return rest;
-	return rest === '/' ? `/${locale}` : `/${locale}${rest}`;
+	const localized = locale === DEFAULT_LOCALE ? rest : rest === '/' ? `/${locale}` : `/${locale}${rest}`;
+	return localized === '/' ? '/' : `${localized.replace(/\/$/, '')}/`;
 }

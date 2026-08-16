@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Uygulama tek adres uzerinden iki dilde sunuluyor (dil secimi tarayicida
-  yapiliyor ve localStorage'da saklaniyor), bu yuzden dil basina ayri adres
-  yok; hreflang girdileri de bu nedenle bulunmuyor.
--->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://www.convetta.com/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://www.convetta.com/resizer</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.convetta.com/privacy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-</urlset>
+<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap><loc>https://www.convetta.com/sitemap-tr.xml</loc></sitemap>
+  <sitemap><loc>https://www.convetta.com/sitemap-en.xml</loc></sitemap>
+</sitemapindex>

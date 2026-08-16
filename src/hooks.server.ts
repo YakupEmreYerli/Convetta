@@ -75,8 +75,8 @@ function redirectToCanonical(url: URL, request: Request) {
 		redirect(301, (rest === '/' ? '/' : rest.replace(/\/$/, '')) + search);
 	}
 
-	// Sondaki egik cizgi tek bir kanonik bicime indiriliyor (/resizer/ -> /resizer).
-	if (pathname.length > 1 && pathname.endsWith('/')) {
-		redirect(301, pathname.replace(/\/+$/, '') + search);
+	// Sayfa rotaları sondaki eğik çizgiyle tek bir kanonik biçimde tutulur.
+	if (pathname.length > 1 && !pathname.endsWith('/')) {
+		redirect(301, `${pathname}/${search}`);
 	}
 }

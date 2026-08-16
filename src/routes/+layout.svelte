@@ -19,7 +19,7 @@
 	// Kanonik adres her zaman www'li uretim alan adi; onizleme ve gelistirme
 	// sunucularinin adresi dizine gonderilmemeli.
 	const SITE_ORIGIN = 'https://www.convetta.com';
-	let path = $derived(page.url.pathname.replace(/\/$/, '') || '/');
+	let path = $derived(page.url.pathname === '/' ? '/' : `${page.url.pathname.replace(/\/$/, '')}/`);
 	let canonical = $derived(SITE_ORIGIN + path);
 	let alternates = $derived(
 		LOCALES.map((code) => ({ code, href: SITE_ORIGIN + localizePath(path, code) }))
