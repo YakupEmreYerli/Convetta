@@ -63,6 +63,7 @@ export const tr: Dictionary = {
 		notImage: 'Bu dosya bir görsel değil.',
 		unsupported: 'Bu görsel türü desteklenmiyor.',
 		tooLarge: 'Dosya çok büyük (en fazla 20 MB).',
+		tooLargeDetail: 'Bu görsel {size}. Convetta dosya başına en fazla 20 MB kabul ediyor.',
 		decode: 'Görsel okunamadı. Dosya bozuk olabilir.',
 		encode: 'Tarayıcınız bu formatı üretemiyor.',
 		server: 'Sunucu tarafındaki dönüşüm başarısız oldu. Lütfen tekrar deneyin.',
@@ -75,6 +76,7 @@ export const tr: Dictionary = {
 		metaDescription:
 			'JPG, PNG ve WEBP görsellerini çevrimiçi ve ücretsiz boyutlandırın. Genişlik ve yüksekliği piksel olarak girin, en-boy oranını kilitli tutarak görselin ezilmesini önleyin, tamamını tek seferde boyutlandırın — hepsi tarayıcınızın içinde.',
 		title: 'Ücretsiz Çevrimiçi Görsel Boyutlandırıcı',
+		trustTitle: 'Neden Convetta ile boyutlandırmalısınız?',
 		subtitle: 'Yeni genişlik ve yüksekliği piksel olarak girin. Hiçbir dosya yüklenmez; işlem tarayıcınızda yapılır.',
 		resultsSubtitle: 'Boyutlandırdığınız dosyaları buradan indirin.',
 		width: 'Genişlik (px)',
@@ -98,7 +100,7 @@ export const tr: Dictionary = {
 			},
 			{
 				title: 'Toplu iş tek seferde',
-				body: 'İstediğiniz kadar görseli aynı ölçüye getirin ve tümünü tek bir ZIP olarak indirin.'
+				body: 'Bir yığının tamamını aynı ölçüye getirin ve sonuçları tek bir ZIP olarak indirin.'
 			}
 		],
 		how: {
@@ -222,7 +224,7 @@ export const tr: Dictionary = {
 			},
 			{
 				title: 'Toplu işe göre yapılmış',
-				body: 'İstediğiniz kadar görsel ekleyin, hepsini tek seferde dönüştürün ve tümünü tek bir ZIP olarak indirin.'
+				body: 'Birden çok görsel ekleyin, hepsini tek seferde dönüştürün ve tümünü tek bir ZIP olarak indirin. Tek seferde kaç dosyanın sığacağı tarayıcınızın ayırabildiği belleğe bağlıdır.'
 			},
 			{
 				title: 'Hesap yok, kurulum yok',
@@ -352,7 +354,11 @@ export const tr: Dictionary = {
 			},
 			{
 				q: 'Aynı anda birden fazla görsel dönüştürebilir miyim?',
-				a: 'Evet. İstediğiniz kadar görsel seçin ya da sürükleyin; hepsi tek geçişte dönüştürülür. Hazır olduklarında tek tek ya da tek bir ZIP olarak indirebilirsiniz.'
+				a: 'Evet. Birden çok görsel seçin ya da sürükleyin; hepsi tek geçişte dönüştürülür. Hazır olduklarında tek tek ya da tek bir ZIP olarak indirebilirsiniz. Dosya sayısı için sabit bir sınır yok; çok büyük bir yığında sınırı tarayıcınızın ayırabildiği bellek koyar.'
+			},
+			{
+				q: 'Hareketli bir GIF’i dönüştürdüğümde ne olur?',
+				a: 'Yalnızca ilk kare kalır. JPG, PNG ve WEBP çıktısı hareketsiz bir görseldir; hareketli bir GIF bunlardan birine dönüştürüldüğünde ilk karesi alınır, gerisi düşer. GIF’e dönüştürdüğünüzde mevcut animasyon korunur.'
 			},
 			{
 				q: 'Convetta ücretsiz mi?',

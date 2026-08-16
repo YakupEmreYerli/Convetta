@@ -14,7 +14,11 @@
 	class="mx-auto w-full max-w-7xl px-4 pt-8 sm:px-6 lg:px-8"
 	aria-labelledby="resizer-trust-title"
 >
-	<h2 id="resizer-trust-title" class="sr-only">{locale.dict.resizer.title}</h2>
+	<!--
+		Baslik H1'i tekrar etmemeli: gorsel olarak gizli olsa da belge yapisinda
+		ve ekran okuyucuda ayni metin iki kez gecerdi.
+	-->
+	<h2 id="resizer-trust-title" class="sr-only">{locale.dict.resizer.trustTitle}</h2>
 	<ul class="grid gap-4 sm:grid-cols-3">
 		{#each locale.dict.resizer.trust as item (item.title)}
 			<li class="rounded-2xl bg-white p-6 shadow-xl dark:bg-slate-800">

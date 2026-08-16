@@ -66,6 +66,7 @@ export const en = {
 		notImage: 'This file is not an image.',
 		unsupported: 'This image type is not supported.',
 		tooLarge: 'File is too large (20 MB maximum).',
+		tooLargeDetail: 'This image is {size}. Convetta accepts files up to 20 MB each.',
 		decode: 'The image could not be read. It may be corrupted.',
 		encode: 'Your browser cannot produce this format.',
 		server: 'Server-side conversion failed. Please try again.',
@@ -78,6 +79,7 @@ export const en = {
 		metaDescription:
 			'Resize JPG, PNG and WEBP images online for free. Set the width and height in pixels, keep the aspect ratio locked so nothing stretches, and resize a whole batch at once — all inside your browser.',
 		title: 'Free Online Image Resizer',
+		trustTitle: 'Why resize with Convetta?',
 		subtitle: 'Set a new width and height in pixels. Nothing is uploaded — resizing runs in your browser.',
 		resultsSubtitle: 'Download your resized files here.',
 		width: 'Width (px)',
@@ -101,7 +103,7 @@ export const en = {
 			},
 			{
 				title: 'Whole batches at once',
-				body: 'Resize any number of images to the same dimensions and download them together as a ZIP.'
+				body: 'Resize a whole batch to the same dimensions and download the results together as a ZIP.'
 			}
 		],
 		how: {
@@ -225,7 +227,7 @@ export const en = {
 			},
 			{
 				title: 'Built for batches',
-				body: 'Add as many images as you like, convert them in one pass and download the whole set as a single ZIP.'
+				body: 'Add multiple images, convert them in one pass and download the whole set as a single ZIP. How many fit in one batch depends on the memory your browser can spare.'
 			},
 			{
 				title: 'No account, no install',
@@ -355,7 +357,11 @@ export const en = {
 			},
 			{
 				q: 'Can I convert several images at once?',
-				a: 'Yes. Select or drop as many images as you like and they are converted in one pass. When they are ready you can download them individually or as a single ZIP.'
+				a: 'Yes. Select or drop several images and they are converted in one pass. When they are ready you can download them individually or as a single ZIP. There is no fixed cap on the number of files; a very large batch is limited by the memory your browser can spare.'
+			},
+			{
+				q: 'What happens when I convert an animated GIF?',
+				a: 'Only the first frame survives. JPG, PNG and WEBP output is a still image, so an animated GIF converted to one of them keeps its opening frame and drops the rest. Converting to GIF leaves an existing animation intact.'
 			},
 			{
 				q: 'Is Convetta free?',

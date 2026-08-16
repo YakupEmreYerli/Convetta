@@ -4,10 +4,17 @@ import { DEFAULT_LOCALE } from '$lib/i18n';
 import { localeFromPath } from '$lib/i18n/paths';
 
 /**
- * Kanonik adres tek: https://www.convetta.com. Dokploy'da hem convetta.com hem
- * www.convetta.com ayni konteynere yonlendigi icin non-www -> www 301'i burada
- * yapiliyor; yoksa ayni icerik iki adreste 200 doner ve arama motoru kanonik
- * secimi kendi basina yapar.
+ * Kanonik adres tek: https://www.convetta.com.
+ *
+ * DIKKAT: asagidaki non-www -> www 301'i sitenin SAYFALARINI kapsamiyor.
+ * Sayfalar prerender ediliyor ve adapter-node prerender edilmis dosyalari bu
+ * hook calismadan once statik olarak sunuyor; yani convetta.com/ istegi 301
+ * degil 200 doner. Kural yalnizca prerender edilmemis yollarda (or. 404'e
+ * dusen adresler) devreye giriyor.
+ *
+ * Sayfalar icin non-www -> www yonlendirmesi bu yuzden kenarda (Cloudflare
+ * redirect rule) tanimlanmali. Kod tarafinda tek koruma her sayfanin
+ * kendini www'li adrese isaret eden <link rel="canonical"> etiketi.
  */
 const CANONICAL_HOST = 'www.convetta.com';
 const REDIRECT_HOSTS = new Set(['convetta.com']);

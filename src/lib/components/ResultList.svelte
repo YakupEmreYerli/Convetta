@@ -12,6 +12,18 @@
 	let { results }: Props = $props();
 
 	/**
+	 * "Dosya cok buyuk" hatasi tek basina eyleme donusmuyor: kullanici dosyanin
+	 * ne kadar buyuk oldugunu bilmiyor. Boyut elimizdeyken sinirla birlikte
+	 * soyluyoruz; diger hatalarda sozlukteki duz metin yeterli.
+	 */
+	function errorText(entry: Extract<JobEntry, { kind: 'error' }>): string {
+		if (entry.code === 'tooLarge' && entry.sourceSize > 0) {
+			return locale.t((d) => d.errors.tooLargeDetail, { size: formatBytes(entry.sourceSize) });
+		}
+		return locale.dict.errors[entry.code];
+	}
+
+	/**
 	 * PDF ciktisi <img> ile gosterilemez; ICO'yu tarayicilarin cogu gosterir ama
 	 * hepsi degil. Gosterilemeyen turlerde kirik gorsel yerine uzanti rozeti
 	 * cikiyor.
@@ -94,7 +106,7 @@
 							{entry.sourceName}
 						</span>
 						<span class="block text-xs text-red-600 dark:text-red-400">
-							{locale.dict.errors[entry.code]}
+							{errorText(entry)}
 						</span>
 					</span>
 				</div>

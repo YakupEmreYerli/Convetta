@@ -34,6 +34,8 @@ export interface JobFailure {
 	kind: 'error';
 	sourceName: string;
 	code: ConversionErrorCode;
+	/** Kaynak dosyanin boyutu: "cok buyuk" hatasi kac MB oldugunu soyleyebilsin. */
+	sourceSize: number;
 }
 
 export type JobEntry = JobSuccess | JobFailure;
@@ -194,7 +196,13 @@ export abstract class FileJobState {
 				const code: ConversionErrorCode = err instanceof ConversionError ? err.code : 'encode';
 				this.results = [
 					...this.results,
-					{ id: item.id, kind: 'error', sourceName: item.file.name, code }
+					{
+						id: item.id,
+						kind: 'error',
+						sourceName: item.file.name,
+						code,
+						sourceSize: item.file.size
+					}
 				];
 			}
 			this.done += 1;
