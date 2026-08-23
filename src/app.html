@@ -25,13 +25,20 @@
 			// Tema ilk boyamadan once uygulanir; aksi halde koyu temada acilista
 			// beyaz bir parlama olusur. Dil adresten geliyor (bkz. hooks.server.ts).
 			(function () {
+				var theme = null;
 				try {
-					var theme = localStorage.getItem('convetta:theme');
-					if (theme === 'dark' || (!theme && matchMedia('(prefers-color-scheme: dark)').matches)) {
-						document.documentElement.classList.add('dark');
-					}
+					theme = localStorage.getItem('convetta:theme');
 				} catch (e) {
-					/* localStorage kapaliysa varsayilanlarla devam edilir */
+					/* localStorage kapalıysa yalnızca bu okuma atlanır; aşağıdaki sistem tercihi yine denenir */
+				}
+				var systemDark = false;
+				try {
+					systemDark = matchMedia('(prefers-color-scheme: dark)').matches;
+				} catch (e) {
+					/* matchMedia yoksa varsayılanla devam edilir */
+				}
+				if (theme === 'dark' || (!theme && systemDark)) {
+					document.documentElement.classList.add('dark');
 				}
 			})();
 		</script>
