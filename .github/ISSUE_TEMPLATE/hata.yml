@@ -1,0 +1,67 @@
+name: Hata bildirimi
+description: Beklenmedik bir davranış ya da bozuk bir dönüşüm bildir
+title: '[Hata]: '
+labels: ['hata']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Teşekkürler. Dönüştürme hatalarında **hangi format çiftinde** olduğunu
+        yazman en çok zaman kazandıran bilgi — JPG/PNG/WEBP tarayıcıda,
+        GIF/ICO/PDF sunucuda üretiliyor ve sorunun kaynağı buna göre değişiyor.
+
+  - type: textarea
+    id: ne-oldu
+    attributes:
+      label: Ne oldu
+      description: Beklediğin ile karşılaştığın davranışı yaz.
+    validations:
+      required: true
+
+  - type: textarea
+    id: adimlar
+    attributes:
+      label: Yeniden üretme adımları
+      placeholder: |
+        1. www.convetta.com adresine git
+        2. 4 MB'lık bir PNG bırak
+        3. Hedef format olarak WEBP seç
+        4. "Dönüştür" tıkla → ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: alan
+    attributes:
+      label: Nerede
+      options:
+        - Dönüştürücü (ana sayfa)
+        - Boyutlandırıcı (/resizer)
+        - Diğer / emin değilim
+    validations:
+      required: true
+
+  - type: input
+    id: format
+    attributes:
+      label: Format çifti
+      description: Kaynak → hedef.
+      placeholder: PNG → ICO
+    validations:
+      required: true
+
+  - type: input
+    id: ortam
+    attributes:
+      label: Tarayıcı ve işletim sistemi
+      placeholder: Firefox 141 / Linux — ya da Safari 18 / iOS 18
+    validations:
+      required: true
+
+  - type: textarea
+    id: konsol
+    attributes:
+      label: Konsol çıktısı veya ekran görüntüsü
+      description: Varsa tarayıcı konsolundaki hata ya da bir ekran görüntüsü.
+    validations:
+      required: false

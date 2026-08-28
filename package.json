@@ -4,6 +4,28 @@
   "private": true,
   "type": "module",
   "description": "Convetta - free online image converter and resizer (SvelteKit)",
+  "license": "AGPL-3.0-only",
+  "author": "Yakup Emre Yerli",
+  "homepage": "https://www.convetta.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YakupEmreYerli/Convetta.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YakupEmreYerli/Convetta/issues"
+  },
+  "keywords": [
+    "image-converter",
+    "image-resizer",
+    "webp",
+    "png",
+    "jpeg",
+    "ico",
+    "pdf",
+    "sveltekit",
+    "imagemagick",
+    "privacy"
+  ],
   "engines": {
     "node": ">=20"
   },

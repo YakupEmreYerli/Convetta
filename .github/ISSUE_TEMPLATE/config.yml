@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Güvenlik açığı bildirimi
+    url: https://github.com/YakupEmreYerli/Convetta/security/advisories/new
+    about: Güvenlik açıklarını herkese açık issue olarak açma; buradan gizli bildir.
+  - name: Soru ve öneriler
+    url: https://github.com/YakupEmreYerli/Convetta/discussions
+    about: Hata bildirimi değil de bir sorunsa tartışmalar bölümünü kullan.
