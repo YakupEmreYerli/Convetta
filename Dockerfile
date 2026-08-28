@@ -2,7 +2,7 @@
 #
 # Iki asamali build: npm agaci ve derleme builder katmaninda kalir, calisan
 # imajda yalnizca uretim bagimliliklari ve build/ ciktisi bulunur.
-FROM node:22-alpine AS builder
+FROM node:25-alpine AS builder
 
 WORKDIR /src
 
@@ -16,7 +16,7 @@ RUN npm run build \
 
 # ---------------------------------------------------------------------------
 
-FROM node:22-alpine
+FROM node:25-alpine
 
 # imagemagick: GIF/ICO/PDF donusumleri icin (bkz. src/lib/server/magick.ts).
 #   JPG/PNG/WEBP tarayicida canvas ile donusturuluyor, sunucuya hic gelmiyor.
