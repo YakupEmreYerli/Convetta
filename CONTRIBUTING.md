@@ -5,7 +5,7 @@ kabul edilebilmesi için nelerin gerektiğini kısaca anlatır.
 
 ## Ortamı kurmak
 
-Gereksinim: **Node ≥ 20**.
+Gereksinim: **Node ≥ 22**. (Test paketi jsdom üzerinden Node 22.10+ gerektirir.)
 
 ```bash
 npm install

@@ -10,7 +10,7 @@ JPG, PNG ve WEBP dönüşümleri tarayıcıdan hiç çıkmaz.
 [![CI](https://github.com/YakupEmreYerli/Convetta/actions/workflows/ci.yml/badge.svg)](https://github.com/YakupEmreYerli/Convetta/actions/workflows/ci.yml)
 [![Lisans: AGPL-3.0](https://img.shields.io/badge/lisans-AGPL--3.0-blue.svg)](LICENSE)
 [![SvelteKit](https://img.shields.io/badge/SvelteKit-2-FF3E00?logo=svelte&logoColor=white)](https://kit.svelte.dev)
-[![Node](https://img.shields.io/badge/Node-%E2%89%A520-5FA04E?logo=node.js&logoColor=white)](package.json)
+[![Node](https://img.shields.io/badge/Node-%E2%89%A522-5FA04E?logo=node.js&logoColor=white)](package.json)
 
 [**www.convetta.com**](https://www.convetta.com) &nbsp;·&nbsp; [Boyutlandırıcı](https://www.convetta.com/resizer/) &nbsp;·&nbsp; [Gizlilik](https://www.convetta.com/privacy/) &nbsp;·&nbsp; [English](README.en.md)
 
@@ -74,7 +74,7 @@ flowchart LR
 
 ## Hızlı başlangıç
 
-Gereksinim: **Node ≥ 20**. GIF/ICO/PDF dönüşümlerini yerelde denemek için ayrıca **ImageMagick** (`magick`) gerekir; kurulu değilse o üç format `501` döner, geri kalan her şey çalışır.
+Gereksinim: **Node ≥ 22**. GIF/ICO/PDF dönüşümlerini yerelde denemek için ayrıca **ImageMagick** (`magick`) gerekir; kurulu değilse o üç format `501` döner, geri kalan her şey çalışır.
 
 ```bash
 git clone https://github.com/YakupEmreYerli/Convetta.git

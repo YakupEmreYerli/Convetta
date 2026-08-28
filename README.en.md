@@ -10,7 +10,7 @@ JPG, PNG and WEBP conversions never leave your browser.
 [![CI](https://github.com/YakupEmreYerli/Convetta/actions/workflows/ci.yml/badge.svg)](https://github.com/YakupEmreYerli/Convetta/actions/workflows/ci.yml)
 [![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
 [![SvelteKit](https://img.shields.io/badge/SvelteKit-2-FF3E00?logo=svelte&logoColor=white)](https://kit.svelte.dev)
-[![Node](https://img.shields.io/badge/Node-%E2%89%A520-5FA04E?logo=node.js&logoColor=white)](package.json)
+[![Node](https://img.shields.io/badge/Node-%E2%89%A522-5FA04E?logo=node.js&logoColor=white)](package.json)
 
 [**www.convetta.com/en**](https://www.convetta.com/en/) &nbsp;·&nbsp; [Resizer](https://www.convetta.com/en/resizer/) &nbsp;·&nbsp; [Privacy](https://www.convetta.com/en/privacy/) &nbsp;·&nbsp; [Türkçe](README.md)
 
@@ -74,7 +74,7 @@ flowchart LR
 
 ## Quick start
 
-Requires **Node ≥ 20**. To exercise GIF/ICO/PDF locally you also need **ImageMagick** (`magick`); without it those three formats return `501` and everything else works.
+Requires **Node ≥ 22**. To exercise GIF/ICO/PDF locally you also need **ImageMagick** (`magick`); without it those three formats return `501` and everything else works.
 
 ```bash
 git clone https://github.com/YakupEmreYerli/Convetta.git

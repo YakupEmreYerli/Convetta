@@ -21,7 +21,7 @@ npm run build        # adapter-node -> build/
 npm start            # server/index.js (build/ gerektirir) -> http://localhost:3000
 npm run preview      # SvelteKit'in kendi onizleme sunucusu
 npm run check        # svelte-kit sync + svelte-check
-npm test             # vitest run  (10 dosya, 71 test)
+npm test             # vitest run  (10 dosya, 71 test) - Node >= 22.10 gerekir
 
 npx vitest run src/lib/convert.test.ts     # tek dosya
 npx vitest run -t "test adi"               # tek test
