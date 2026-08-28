@@ -1,0 +1,40 @@
+name: Özellik önerisi
+description: Yeni bir format, ayar ya da iyileştirme öner
+title: '[Öneri]: '
+labels: ['öneri']
+body:
+  - type: textarea
+    id: sorun
+    attributes:
+      label: Hangi sorunu çözüyor
+      description: Önerinin kendisinden önce, çözdüğü ihtiyacı anlat.
+    validations:
+      required: true
+
+  - type: textarea
+    id: oneri
+    attributes:
+      label: Önerdiğin çözüm
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tur
+    attributes:
+      label: Türü
+      options:
+        - Yeni hedef format
+        - Yeni girdi formatı
+        - Arayüz / kullanılabilirlik
+        - Başarım
+        - Çeviri
+        - Diğer
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatifler
+    attributes:
+      label: Düşündüğün alternatifler
+    validations:
+      required: false

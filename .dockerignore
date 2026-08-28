@@ -6,7 +6,12 @@ build
 package-lock.json
 
 README.md
+README.en.md
 CLAUDE.md
+CONTRIBUTING.md
+SECURITY.md
+LICENSE
+.github
 Dockerfile
 .dockerignore
 *.log

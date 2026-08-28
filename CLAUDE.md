@@ -1,77 +1,122 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Bu dosya, bu depoda çalışan Claude Code'a (claude.ai/code) yön verir.
 
-## Depoda iki kod tabanı var
+## Proje
 
-Bu en kritik nokta: repo aynı anda **yayındaki statik siteyi** ve **devam eden SvelteKit yeniden yazımını** barındırıyor. İkisi birbirinden bağımsız derlenir ve şu an yalnızca birincisi dağıtılıyor.
+Convetta — ücretsiz online görsel dönüştürücü ve boyutlandırıcı
+([www.convetta.com](https://www.convetta.com)). SvelteKit 2 + Svelte 5 (rune'lar),
+`adapter-node`, TypeScript, Tailwind. Docker imajı Dokploy üzerinde çalışıyor.
 
-| | Yayındaki site | SvelteKit yeniden yazımı |
-|---|---|---|
-| Kaynak | kökteki `*.html`, `tr/`, `resizer/`, `privacy/`, `assets/js/`, `assets/css/` | `src/` |
-| Sunum | `server.cjs` (Docker/Dokploy) | henüz dağıtılmıyor |
-| Tailwind | `tailwind.config.cjs` | `tailwind.app.config.js` |
-| Komut | `npm start`, `npm run build:css` | `npm run dev:app`, `npm run build:app` |
-| Durum | üretimde | `src/routes/` ve `src/lib/components/` **henüz yok** — sadece `src/lib/` altındaki saf mantık yazılmış |
-
-Bir istek geldiğinde hangi taraf kastediliyor belirsizse sor; "dönüştürücüyü düzelt" yayındaki `assets/js/script-converter.js` de olabilir, `src/lib/convert.ts` de.
+Depo bir zamanlar hem statik HTML siteyi hem de SvelteKit yeniden yazımını
+barındırıyordu; **taşıma tamamlandı**. Kökteki `*.html`, `tr/`, `assets/`,
+`server.cjs`, `layout/` artık yok. Eski dosyalara atıfta bulunan bir yönerge ya da
+yorumla karşılaşırsan güncel karşılığını `src/` altında ara.
 
 ## Komutlar
 
 ```bash
-npm start                # server.cjs -> http://localhost:8787 (yayındaki site)
-npm run dev              # aynısı, PORT=8787 açıkça verilmiş
-npm run build:css        # statik sitenin Tailwind'i -> assets/css/tailwind.css
-npm run watch:css        # geliştirme sırasında izleyerek
+npm run dev          # Vite gelistirme sunucusu -> http://localhost:5173
+npm run build        # adapter-node -> build/
+npm start            # server/index.js (build/ gerektirir) -> http://localhost:3000
+npm run preview      # SvelteKit'in kendi onizleme sunucusu
+npm run check        # svelte-kit sync + svelte-check
+npm test             # vitest run  (10 dosya, 71 test)
 
-npm run dev:app          # SvelteKit dev sunucusu
-npm run build:app        # adapter-static ile build/ dizinine
-npm run check            # svelte-kit sync + svelte-check (tip kontrolü)
-npm test                 # vitest run
+npx vitest run src/lib/convert.test.ts     # tek dosya
+npx vitest run -t "test adi"               # tek test
 
 docker build -t convetta . && docker run --rm -p 8787:8787 convetta
 ```
 
-`vitest` yapılandırılmış (`vite.config.ts` içinde, `jsdom` + `src/**/*.test.ts`) ama **henüz hiç test dosyası yok**. Tek test çalıştırma: `npx vitest run src/lib/convert.test.ts` veya isimle `npx vitest run -t "test adı"`.
+`package-lock.json` bilinçli olarak `.gitignore`'da. Bu yüzden hem Dockerfile hem
+CI `npm ci` değil `npm install --no-audit --no-fund` kullanıyor; birini `npm ci`'ye
+çevirirsen kilit dosyası olmadığı için kırılır.
 
 ## Dönüştürme mimarisi
 
-Dönüşüm iki yere bölünmüş, ayrım formatın tarayıcıda üretilebilirliğine göre:
+Dönüşüm, formatın **tarayıcıda üretilebilirliğine** göre ikiye ayrılmış:
 
-- **Tarayıcıda (canvas):** JPG, PNG, WEBP. Dosya cihazdan çıkmaz. Yayındaki tarafta `assets/js/script-converter.js`, yeni tarafta `src/lib/convert.ts`.
-- **Sunucuda (ImageMagick):** GIF, ICO, PDF. `POST /api/convert?format=<...>`, gövde **ham ikili veri** (multipart değil). Yalnızca bu üç format sunucuya iner.
+- **Tarayıcıda (canvas):** JPG, PNG, WEBP — `src/lib/convert.ts`. Dosya cihazdan çıkmaz.
+- **Sunucuda (ImageMagick):** GIF, ICO, PDF — `src/lib/server/magick.ts`,
+  `POST /api/convert?format=<...>`. Gövde **ham ikili veri**, multipart değil.
 
-`canvas.toBlob` desteklemediği bir MIME istendiğinde sessizce PNG döndürür; bu yüzden `convert.ts` çıktının `blob.type`'ını doğrulayıp uyuşmazsa `ConversionError('encode')` atar. Yeni bir hedef format eklerken bu sessiz-PNG tuzağını unutma — `src/lib/formats.ts` içindeki `TARGET_FORMATS` / `PLANNED_FORMATS` ayrımı tam da bunun için var.
+`canvas.toBlob` desteklemediği bir MIME istendiğinde hata vermez, **sessizce PNG
+döndürür**. `convert.ts` bu yüzden çıktının `blob.type` değerini doğrulayıp
+uyuşmazsa `ConversionError('encode')` atar. Yeni bir hedef format eklerken
+`src/lib/formats.ts` içindeki `CANVAS_FORMATS` / `SERVER_FORMATS` ayrımını bu
+tuzağa göre koru — ayrım tam da bunun için var.
 
-Sunucu tarafı sınırlar (`server.cjs`): 20 MB gövde, 20 sn zaman aşımı, IP başına dakikada 30 istek, en fazla 4 eşzamanlı dönüşüm. Girdi türü **dosya adına değil ilk baytlara** bakılarak doğrulanır (`sniffImageType`), böylece ImageMagick'e yalnızca raster görsel ulaşır — Ghostscript imajda kurulu olduğu için PDF/PS girdisini engellemek güvenlik açısından gerekli.
+Sunucu tarafı sınırlar: 20 MB gövde, 20 sn zaman aşımı, IP başına dakikada 30
+istek (`src/lib/server/rateLimit.ts`), sınırlı eşzamanlı dönüşüm yuvası. Girdi türü
+**dosya adına değil ilk baytlara** bakılarak doğrulanır (`sniffImageType`), böylece
+ImageMagick'e yalnızca raster görsel ulaşır — imajda Ghostscript kurulu olduğu için
+PDF/PS girdisini engellemek güvenlik açısından zorunlu.
 
-## server.cjs
+`magick` kabuktan geçmeden `spawn` ile çalıştırılır; bellek/alan/boyut limitleri ve
+`-limit disk 0` sıkıştırma bombalarına karşı. ICO stdout'a yazamayan derlemeler
+yüzünden `/tmp`'e yazılıp okunur ve hemen silinir.
 
-729 satırlık tek dosya, **sıfır üretim bağımlılığı** (yalnızca Node stdlib). Statik dosya sunumu + `/api/convert` + yoğun SEO kanoniklestirmesi bir arada:
+## Kendi sunucu girdisi
 
-- non-www → www 301 (`CANONICAL_HOST`), şema `X-Forwarded-Proto`'dan okunur (Traefik arkasında düz HTTP dinler)
-- tanınmayan sorgu parametreleri 301 ile atılır (aynı içerik sonsuz adreste yayınlanmasın diye)
-- `.php/.asp/...` uzantıları 410 döner (`GONE_EXTENSIONS`)
-- `404.html` / `tr/404.html` sayfa değil, sunucunun okuduğu hata gövdeleri
-- brotli/gzip önbelleği bellekte, anahtar dosya yolu + ETag
-- CSP `unsafe-inline` içeriyor çünkü sayfalarda FOUC önleyen satır içi tema script'i var; asıl koruma `default-src 'self'` + `object-src 'none'`
+Üretimde `build/index.js` değil `server/index.js` çalışıyor. Tek sebebi: **non-www →
+www yönlendirmesinin, önceden üretilmiş dosyalar sunulmadan önce yapılması
+gerekmesi.** adapter-node'un hazır girdisi isteği doğrudan handler'a verir ve statik
+dosya handler'ın içinden, hook'lardan önce çıkar.
 
-Bu kuralları değiştirirken `sitemap.xml`, sayfalardaki `<link rel="canonical">` ve hreflang etiketleriyle tutarlılığı koru.
+Aynı sebeple güvenlik başlıkları **iki yerde birden** uygulanıyor:
+`server/index.js` (önceden üretilmiş sayfaları kapsar) ve `src/hooks.server.ts`
+(geliştirme sunucusunu kapsar). Tek kaynak `server/security.js`; yalnızca birini
+güncellemek sessiz bir boşluk bırakır. Node `writeHead` değerini `setHeader`'ın
+üzerine yazdığı için başlık iki kez gönderilmez.
+
+Traefik HTTPS'i sonlandırıp `X-Forwarded-Proto` gönderdiği için uygulama konteyner
+içinde düz HTTP dinler; yönlendirmelerde şema bu başlıktan okunur.
+
+CSP `unsafe-inline` içeriyor çünkü SvelteKit hydration verisini ve `app.html`'deki
+FOUC önleyen tema betiğini satır içi çalıştırıyor; asıl koruma `default-src 'self'`
++ `object-src 'none'`.
+
+## Yönlendirme ve i18n
+
+- Rotalar `src/routes/[[lang=locale]]/` altında; eşleştirici `src/params/locale.ts`.
+- Varsayılan dil **Türkçe** ve önek almaz: `/`, `/resizer/`. İngilizce `/en/` önekli.
+- **Adres ile dil arasındaki tek dönüşüm noktası `src/lib/i18n/paths.ts`.** Kanonik
+  adres, hreflang etiketleri ve dil seçici hep oradaki fonksiyonları kullanır.
+- `src/lib/i18n/en.ts` sözlük **şemasını** tanımlar; `Dictionary` tipi ondan
+  türetildiği için yeni bir anahtar `tr.ts` güncellenmeden derlenmez.
+- Çeviri metinleri HTML olarak değil metin olarak basılıyor — `fill()` kaçışlama
+  yapmaz, bu varsayımı bozma.
+- Sayfalar önceden üretiliyor (`+layout.ts` içinde `prerender`); yalnızca
+  `/api/convert` çalışma zamanı gerektiriyor ve `prerender = false` ile işaretli.
+
+Yönlendirme, kanonik adres ya da yol yapısını değiştirirken `paths.ts`,
+`server/canonical.js` ve `static/sitemap*.xml` arasındaki tutarlılığı koru.
 
 ## Dikkat edilecekler
 
-**İki Tailwind yapılandırması birbirine karışmamalı.** Kökte bilerek `postcss.config.js` yok; olsaydı `npm run build:css` çağrısı da onu yakalar ve iki yapılandırma üst üste binerdi. SvelteKit tarafı PostCSS zincirini `vite.config.ts` içinden doğrudan alır.
+**Dockerfile build sırasında ImageMagick kodlayıcılarını doğruluyor.** Eksik
+kodlayıcı hata vermez, sessizce boş çıktı üretir — bu yüzden `PNG JPEG WEBP GIF ICO
+PDF` kontrolü var ve biri eksikse imaj hiç üretilmez. Yeni format eklersen ilgili
+`imagemagick-<format>` apk paketini ve bu listeyi güncelle. `magick.ts` ayrıca
+açılışta kodlayıcıları yoklar ve eksik formatı 500 yerine açık bir 501 ile reddeder.
 
-**`assets/css/tailwind.css` derlenmiş haliyle repoya commit ediliyor.** Dockerfile bu yüzden tek aşamalı ve imajda ne npm ağacı ne build aracı var. HTML'e yeni bir Tailwind sınıfı eklediğinde `npm run build:css` çalıştırıp **çıktıyı da commit et**, yoksa üretimde stil kaybolur. JS içinde dinamik atanan sınıflar `tailwind.config.cjs` içindeki `safelist`'e eklenmeli.
+**Tailwind yapılandırması `tailwind.app.config.js`, PostCSS zinciri
+`vite.config.ts` içinden veriliyor.** Kökte bilerek `postcss.config.js` yok. JS
+içinde dinamik atanan sınıflar `safelist`'e eklenmeli.
 
-**Sürüm damgası elle yayılıyor.** `?v=1.0.4` 8 HTML dosyasında toplam 40 yerde geçiyor ve `package.json`'daki `version` ile eşleşmeli. CSS/JS değiştirdiğinde hepsini birden güncelle; damgasız istekler bir yıl yerine her seferinde doğrulanır, damgalı olan `immutable` işaretlenir.
+**Durum `*.svelte.ts` dosyalarında, rune'larla tutuluyor** (`src/lib/state/`). Dil
+tercihi `localStorage`'da `convetta:lang`, tema `convetta:theme` anahtarıyla; ikisi
+de `localStorage` erişimi hata verdiğinde (gizli sekme, kapalı site verisi) sessizce
+varsayılana düşmeli.
 
-**Dockerfile build sırasında ImageMagick kodlayıcılarını doğruluyor.** Eksik kodlayıcı hata vermez, sessizce boş çıktı üretir — bu yüzden `PNG JPEG WEBP GIF ICO PDF` kontrolü var ve biri eksikse imaj hiç üretilmez. Yeni format eklersen ilgili `imagemagick-<format>` apk paketini ve bu listeyi güncelle.
-
-**i18n iki tarafta farklı çalışıyor.** Yayındaki sitede her dil ayrı HTML dosyası (`/` ve `/tr/`); SvelteKit tarafında çalışma zamanında sözlük değişimi (`src/lib/i18n/`, `src/lib/state/locale.svelte.ts`, tercih `localStorage`'da `convetta:lang` anahtarıyla). Çeviri metinleri HTML olarak değil metin olarak basıldığı için `fill()` kaçışlama yapmaz — bu varsayımı bozma.
-
-**`layout/` ve `assets/php/` kullanım dışı.** Header artık her sayfaya gömülü, PHP dönüştürücüsünün işlevi `/api/convert`'e taşındı. `assets/php` altındaki adreslerin 410 dönmesi gerekiyor, bu yüzden `PRIVATE_DIRS` listesinde değiller.
+**Saf mantık `src/lib/` altında ve testleri yanında** (`convert.test.ts`,
+`resize.test.ts`, `filename.test.ts`, ...). Davranış değiştiren bir mantık
+eklediğinde testini de aynı düzende yaz.
 
 ## Dil
 
-Kod yorumları ve dokümantasyon Türkçe yazılıyor. Mevcut yorumlarda ASCII karşılıklar kullanılmış (`donusum`, `gorsel`); yeni yazdığın yorumlarda düzgün Türkçe karakter kullan, eski satırları sırf bunun için düzenleme.
+Kod yorumları ve dokümantasyon Türkçe yazılıyor. Bazı eski yorumlarda ASCII
+karşılıklar var (`donusum`, `gorsel`); yeni yazdığın yorumlarda düzgün Türkçe
+karakter kullan, eski satırları sırf bunun için düzenleme. Commit mesajları da
+Türkçe ve emir kipinde.

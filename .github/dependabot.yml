@@ -1,0 +1,33 @@
+# Bagimlilik guncellemeleri. Kilit dosyasi depoda olmadigi icin Dependabot
+# package.json'daki surum araliklarini gunceller.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: 'bagimlilik'
+    groups:
+      # Tek tek PR yerine gruplanmis guncelleme: svelte/vite ekosistemi zaten
+      # birlikte surum atliyor, ayri PR'lar yalnizca gurultu uretir.
+      svelte:
+        patterns: ['svelte', 'svelte-*', '@sveltejs/*']
+      arac-zinciri:
+        patterns: ['vite', 'vitest', 'typescript', 'tailwindcss', 'postcss', 'autoprefixer', '@types/*']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: 'ci'
+
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: 'docker'
