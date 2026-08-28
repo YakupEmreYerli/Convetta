@@ -13,10 +13,17 @@ updates:
     groups:
       # Tek tek PR yerine gruplanmis guncelleme: svelte/vite ekosistemi zaten
       # birlikte surum atliyor, ayri PR'lar yalnizca gurultu uretir.
+      #
+      # Ana surumler bilerek gruba alinmiyor: tailwindcss 3->4 ile typescript
+      # 6->7 tek PR'da birlestiginde iki kirici degisiklik ayni anda geliyor ve
+      # hangisinin kirdigi anlasilmiyor. Grup disinda kalan ana surumler yine
+      # kendi PR'lariyla geliyor, sadece tek tek.
       svelte:
         patterns: ['svelte', 'svelte-*', '@sveltejs/*']
+        update-types: ['minor', 'patch']
       arac-zinciri:
         patterns: ['vite', 'vitest', 'typescript', 'tailwindcss', 'postcss', 'autoprefixer', '@types/*']
+        update-types: ['minor', 'patch']
 
   - package-ecosystem: github-actions
     directory: /
@@ -31,3 +38,9 @@ updates:
       interval: monthly
     commit-message:
       prefix: 'docker'
+    ignore:
+      # Node'un ana surum atlamalari elle yapiliyor: Dependabot LTS olup
+      # olmadigini bilmiyor ve tek numarali surumleri (23, 25) de onerir.
+      # Test paketi ayrica Node 22.10+ gerektiriyor (bkz. package.json engines).
+      - dependency-name: node
+        update-types: ['version-update:semver-major']
