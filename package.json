@@ -27,7 +27,7 @@
     "privacy"
   ],
   "engines": {
-    "node": ">=22"
+    "node": ">=22.12"
   },
   "scripts": {
     "dev": "vite dev",

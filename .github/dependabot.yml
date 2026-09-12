@@ -50,6 +50,6 @@ updates:
     ignore:
       # Node'un ana surum atlamalari elle yapiliyor: Dependabot LTS olup
       # olmadigini bilmiyor ve tek numarali surumleri (23, 25) de onerir.
-      # Test paketi ayrica Node 22.10+ gerektiriyor (bkz. package.json engines).
+      # Test paketi ayrica Node 22.12+ gerektiriyor (bkz. package.json engines).
       - dependency-name: node
         update-types: ['version-update:semver-major']
