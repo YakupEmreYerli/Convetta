@@ -37,11 +37,12 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node }}
-          # setup-node onbellegi bir kilit dosyasi ister; package-lock.json
-          # bilerek depoya girmiyor (bkz. .gitignore), bu yuzden kapali.
+          cache: npm
 
-      # npm ci degil: kilit dosyasi depoda yok. Dockerfile da ayni komutu kullaniyor.
-      - run: npm install --no-audit --no-fund
+      # npm ci: kilit dosyasina birebir uyar, onu hic degistirmez. Kilitsiz
+      # `npm install` her calismada registry'den sifirdan cozuyordu ve ayni commit
+      # bir gun yesil ertesi gun kirmizi olabiliyordu (2026-09-12).
+      - run: npm ci --no-audit --no-fund
 
       - name: Tip kontrolu
         run: npm run check

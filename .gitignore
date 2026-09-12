@@ -1,6 +1,9 @@
 # Bagimliliklar ve uretilen ciktilar
 node_modules/
-package-lock.json
+# package-lock.json BILEREK depoda (2026-09-12). Onceden gitignore'daydi; CI, Docker
+# ve Dokploy her build'de bagimliliklari sifirdan cozuyordu. 28 Agustos'tan sonra kayan
+# 75 paketten biri npm 10'u cokertti ('edgesOut' hatasi) ve ayni commit kirmiziya dondu.
+# Kilitsiz build tekrarlanamaz build'dir.
 build/
 .svelte-kit/
 coverage/

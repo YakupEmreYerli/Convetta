@@ -33,9 +33,12 @@ npx vitest run -t "test adi"               # tek test
 docker build -t convetta . && docker run --rm -p 8787:8787 convetta
 ```
 
-`package-lock.json` bilinçli olarak `.gitignore`'da. Bu yüzden hem Dockerfile hem
-CI `npm ci` değil `npm install --no-audit --no-fund` kullanıyor; birini `npm ci`'ye
-çevirirsen kilit dosyası olmadığı için kırılır.
+`package-lock.json` **depoda** ve hem Dockerfile hem CI `npm ci` kullanıyor. Kilidi
+`.gitignore`'a geri alma, `npm install`'a geri dönme: kilitsiz build her çalışmada
+registry'den sıfırdan çözer ve aynı commit bir gün yeşil ertesi gün kırmızı olur.
+2026-09-12'de tam olarak bu oldu — 28 Ağustos'tan beri kayan 75 paketten biri npm 10'u
+çökertti (`edgesOut` hatası), Node 22 CI'ı, Docker işi ve Dokploy build'i birlikte düştü.
+Bağımlılık güncellemek istiyorsan `npm install <paket>` ile lock'u güncelleyip commit'le.
 
 ## Dönüştürme mimarisi
 

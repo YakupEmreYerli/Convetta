@@ -1,5 +1,5 @@
-# Bagimlilik guncellemeleri. Kilit dosyasi depoda olmadigi icin Dependabot
-# package.json'daki surum araliklarini gunceller.
+# Bagimlilik guncellemeleri. Kilit dosyasi depoda; Dependabot hem package.json
+# araliklarini hem package-lock.json'u gunceller ve her PR'in CI'i kilitle calisir.
 version: 2
 updates:
   - package-ecosystem: npm
@@ -8,6 +8,15 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 5
+    ignore:
+      # typescript 7: @sveltejs/kit ve svelte-check peer araligi ^6'da bitiyor,
+      # kurulum ERESOLVE ile duser. Ikisi destekleyince kaldir.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
+      # tailwindcss 4: PostCSS eklentisi ayri pakete (@tailwindcss/postcss) tasindi,
+      # yapilandirma bicimi degisti. Kendi basina bir goc isi; otomatik PR ile gelmez.
+      - dependency-name: tailwindcss
+        update-types: ['version-update:semver-major']
     commit-message:
       prefix: 'bagimlilik'
     groups:
