@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-> **İkiz dosya:** bu dosyanın eşi `AGENTS.md`. Birini değiştirirsen diğerini de değiştir —
+> **İkiz dosya:** bu dosyanın eşi `CLAUDE.md`. Birini değiştirirsen diğerini de değiştir —
 > yoksa Claude ve Codex farklı kurallarla çalışır.
 
 
