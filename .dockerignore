@@ -3,7 +3,9 @@
 node_modules
 build
 .svelte-kit
-package-lock.json
+# package-lock.json BILEREK dahil: Dockerfile 'npm ci' ile kilide birebir kurar.
+# 2026-09-12'de burada dislanmisti, kilit depoya alininca Dokploy build'i
+# '/package-lock.json: not found' ile dustu.
 
 README.md
 README.en.md
