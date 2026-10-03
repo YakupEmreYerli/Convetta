@@ -88,3 +88,18 @@ jobs:
 
       - if: always()
         run: docker rm -f convetta-ci || true
+
+  # Security fix PRs from Dependabot merge themselves once every check above passes,
+  # so they never pile up on the repository page.
+  dependabot-merge:
+    needs: [kontrol, docker]
+    if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - run: gh pr merge --squash --delete-branch "$PR_URL"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
