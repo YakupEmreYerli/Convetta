@@ -1,0 +1,81 @@
+<!doctype html>
+<!-- Convetta banner'ı, 1280×640: docs/banner.tr.png ve docs/banner.en.png bu dosyadan üretilir.
+     Üret (depo kökünden): node scripts/banner.mjs
+     Türkçe metin sayfada, İngilizcesi data-en özniteliğinde; ?lang=en İngilizceyi açar. İki dilde
+     yalnız metin ve sağdaki arayüz görüntüsünün dili değişir, yerleşim ve stil ortaktır.
+     Yerleşim sitenin 1200×630 OG görseliyle aynı ölçüdedir: sahne 1280 genişliğe büyütülür,
+     üstten ve alttan 16 px kırpılır. Arayüz görüntüsü static/images/<dil>-og-convert-image.png
+     dosyalarının sağ panelinden, iki dilde aynı kırpımla alınır.
+     Yazı tipi Inter (SIL OFL 1.1, fonts/OFL.txt); Latin ve Türkçe karakterlere indirilmiş kopyası. -->
+<html lang="tr">
+<meta charset="utf-8">
+<title>Convetta banner</title>
+<style>
+@font-face { font-family: "Inter Banner"; src: url("fonts/Inter-Regular.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Inter Banner"; src: url("fonts/Inter-Bold.woff2") format("woff2"); font-weight: 700; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1280px; height: 640px; overflow: hidden; }
+.sahne {
+	position: absolute; left: 0; top: 0; width: 1200px; height: 630px; overflow: hidden;
+	transform-origin: 0 0; transform: translateY(-16px) scale(calc(16 / 15));
+	background: linear-gradient(to top right, #3b82f6, #93c5fd, #dbeafe);
+	font-family: "Inter Banner", sans-serif; color: #030712;
+}
+.izgara {
+	position: absolute; inset: 0;
+	background-image:
+		linear-gradient(to right, transparent 47px, rgb(255 255 255 / .35) 47px),
+		linear-gradient(to bottom, transparent 47px, rgb(255 255 255 / .35) 47px);
+	background-size: 48px 48px;
+	mask-image: radial-gradient(ellipse at center, #000, transparent 80%);
+}
+.logo { position: absolute; left: 32px; top: 32px; height: 64px; }
+.etiket {
+	position: absolute; left: 32px; top: 160px;
+	border: 2px solid #030712; border-radius: 9999px; padding: 4px 16px 2px;
+	font-size: 20px; line-height: 28px; font-weight: 400;
+}
+h1 {
+	position: absolute; left: 32px; top: 222px;
+	font-size: 60px; line-height: 72px; font-weight: 700; letter-spacing: -0.02em;
+}
+h1 span { display: block; white-space: nowrap; }
+.arayuz {
+	position: absolute; left: 640px; top: 96px; right: 0; bottom: 0;
+	overflow: hidden; border-top-left-radius: 12px; background: #fff;
+}
+.arayuz img { position: absolute; left: -640px; top: -96px; width: 1200px; height: 630px; }
+</style>
+<body>
+<div class="sahne">
+	<div class="izgara"></div>
+	<img class="logo" src="../../static/images/favicon.svg" alt="">
+	<div class="etiket">convetta.com</div>
+	<h1>
+		<span data-en="Convetta: Convert,">Convetta: Dönüştür,</span>
+		<span data-en="Resize. Simple,">Boyutlandır. Basit,</span>
+		<span data-en="Secure.">Güvenli.</span>
+	</h1>
+	<div class="arayuz"><img src="../../static/images/tr-og-convert-image.png" data-en="../../static/images/en-og-convert-image.png" alt=""></div>
+</div>
+<script>
+	const dil = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'tr';
+	if (dil === 'en') {
+		document.documentElement.lang = 'en';
+		for (const oge of document.querySelectorAll('[data-en]')) {
+			if (oge.tagName === 'IMG') oge.src = oge.dataset.en;
+			else oge.textContent = oge.dataset.en;
+		}
+	}
+	// scripts/banner.mjs bunu bekler: "hazir" dönmezse PNG yazılmaz.
+	window.hazir = Promise.all([
+		document.fonts.load('400 20px "Inter Banner"'),
+		document.fonts.load('700 60px "Inter Banner"'),
+		...[...document.images].map((img) => img.decode())
+	]).then(
+		([normal, kalin]) => (normal.length && kalin.length ? 'hazir' : 'Inter yüklenmedi (docs/brand/fonts)'),
+		(hata) => String(hata)
+	);
+</script>
+</body>
+</html>

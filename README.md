@@ -14,7 +14,7 @@ JPG, PNG ve WEBP dönüşümleri tarayıcıdan hiç çıkmaz.
 
 [**www.convetta.com**](https://www.convetta.com) &nbsp;·&nbsp; [Boyutlandırıcı](https://www.convetta.com/resizer/) &nbsp;·&nbsp; [Gizlilik](https://www.convetta.com/privacy/) &nbsp;·&nbsp; [English](README.en.md)
 
-<img src="static/images/tr-og-convert-image.png" alt="Convetta dönüştürücü arayüzü" width="720">
+<img src="docs/banner.tr.png" alt="Convetta: dönüştür, boyutlandır, basit ve güvenli; yanında dönüştürücü arayüzü" width="720">
 
 </div>
 

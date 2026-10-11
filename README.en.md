@@ -14,7 +14,7 @@ JPG, PNG and WEBP conversions never leave your browser.
 
 [**www.convetta.com/en**](https://www.convetta.com/en/) &nbsp;·&nbsp; [Resizer](https://www.convetta.com/en/resizer/) &nbsp;·&nbsp; [Privacy](https://www.convetta.com/en/privacy/) &nbsp;·&nbsp; [Türkçe](README.md)
 
-<img src="static/images/en-og-convert-image.png" alt="Convetta converter interface" width="720">
+<img src="docs/banner.en.png" alt="Convetta: convert and resize, simple and secure, with the converter interface" width="720">
 
 </div>
 
