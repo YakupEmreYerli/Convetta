@@ -21,7 +21,7 @@
 	<meta name="robots" content="index, follow" />
 </svelte:head>
 
-<main class="mx-auto w-full max-w-7xl flex-grow px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+<main class="mx-auto w-full max-w-7xl grow px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
 	<article class="w-full">
 		<h1 class="text-3xl font-bold text-gray-800 dark:text-white">
 			{locale.dict.privacy.title}

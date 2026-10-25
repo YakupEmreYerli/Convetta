@@ -8,7 +8,7 @@
 	const state = new ResizerState();
 
 	const inputClass =
-		'mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-2 text-base shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-900/40 dark:text-slate-100';
+		'mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-2 text-base shadow-xs focus:border-blue-500 focus:outline-hidden focus:ring-3 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-900/40 dark:text-slate-100';
 </script>
 
 <JobShell
@@ -43,7 +43,7 @@
 					/>
 				</div>
 
-				<div class="flex-shrink-0 pt-6">
+				<div class="shrink-0 pt-6">
 					<button
 						type="button"
 						class="rounded-md p-2 text-white transition-colors duration-200 {state.lockRatio
@@ -119,7 +119,7 @@
 
 			<button
 				type="button"
-				class="mt-4 w-full rounded-lg bg-blue-600 px-4 py-2 font-medium text-white shadow-md transition-transform duration-300 hover:scale-105 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
+				class="mt-4 w-full rounded-lg bg-blue-600 px-4 py-2 font-medium text-white shadow-md transition-transform duration-300 hover:scale-105 hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
 				disabled={state.busy || state.files.length === 0}
 				onclick={() => state.run()}
 			>

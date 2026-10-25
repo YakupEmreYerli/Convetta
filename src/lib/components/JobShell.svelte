@@ -87,13 +87,13 @@
 	olmadan kart yuksekligini controls belirliyordu ve boyutlandiricinin iki
 	girdisi yaninda dönüştürücünün tek satirlik secimi kisa kaliyordu.
 
-	Artan alan boslukta durmuyor: DropZone flex-grow tasidigi icin birakma
+	Artan alan boslukta durmuyor: DropZone grow tasidigi icin birakma
 	alani buyuyor. Dosya eklendiginde iki kart da bu olcuyu asar; o durumda
 	yukseklikleri esitlemek zaten mumkun degil, icerik farkli.
 -->
-<main class="mx-auto w-full max-w-7xl flex-grow px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+<main class="mx-auto w-full max-w-7xl grow px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
 	<div
-		class="flex min-h-[34rem] flex-col gap-8 rounded-2xl bg-white p-8 shadow-xl lg:flex-row dark:bg-slate-800"
+		class="flex min-h-136 flex-col gap-8 rounded-2xl bg-white p-8 shadow-xl lg:flex-row dark:bg-slate-800"
 	>
 		<div class="flex flex-col lg:w-1/2">
 			<div class="mb-8 text-center">
@@ -139,11 +139,11 @@
 
 			<!-- Sonuc paneli, eski surumde oldugu gibi yalnizca cikti varken gorunur. -->
 			{#if state.results.length > 0}
-				<div class="flex-grow">
+				<div class="grow">
 					<div class="mb-4 flex flex-col gap-4 sm:flex-row">
 						<button
 							type="button"
-							class="flex-1 rounded-lg bg-blue-500 px-6 py-3 font-medium text-white shadow-md transition-transform duration-300 hover:scale-105 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
+							class="flex-1 rounded-lg bg-blue-500 px-6 py-3 font-medium text-white shadow-md transition-transform duration-300 hover:scale-105 hover:bg-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
 							disabled={state.busy || state.successes.length === 0}
 							onclick={() => state.downloadEach()}
 						>
@@ -151,7 +151,7 @@
 						</button>
 						<button
 							type="button"
-							class="flex-1 rounded-lg bg-green-500 px-6 py-3 font-medium text-white shadow-md transition-transform duration-300 hover:scale-105 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
+							class="flex-1 rounded-lg bg-green-500 px-6 py-3 font-medium text-white shadow-md transition-transform duration-300 hover:scale-105 hover:bg-green-600 focus:outline-hidden focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
 							disabled={state.busy || state.successes.length === 0}
 							onclick={() => state.downloadZip()}
 						>

@@ -12,7 +12,7 @@
 </svelte:head>
 
 <main
-	class="mx-auto flex w-full max-w-content flex-grow flex-col items-center justify-center px-4 py-16 text-center sm:px-6 lg:px-8"
+	class="mx-auto flex w-full max-w-content grow flex-col items-center justify-center px-4 py-16 text-center sm:px-6 lg:px-8"
 >
 	<p class="text-5xl font-bold text-brand-600">{page.status}</p>
 	<h1 class="mt-4 text-2xl font-bold text-gray-800 sm:text-3xl dark:text-white">

@@ -1,6 +1,56 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/index.css' source('./');
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+	--color-brand-600: #2563eb;
+	--color-brand-700: #1d4ed8;
+	--color-brand: #2864ec;
+
+	--font-sans: Poppins, ui-sans-serif, system-ui, sans-serif;
+
+	--container-content: 80rem;
+}
+
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentColor);
+	}
+}
+
+@layer base {
+	button:not(:disabled),
+	[role='button']:not(:disabled) {
+		cursor: pointer;
+	}
+
+	input::placeholder,
+	textarea::placeholder {
+		color: var(--color-gray-400);
+	}
+}
+
+@utility tap-target {
+	/* Dokunma hedefi mobilde en az 44x44 px (WCAG 2.5.8). */
+	@apply min-h-[44px] min-w-[44px];
+}
+
+@utility btn {
+	@apply tap-target inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-base font-medium shadow-md transition;
+	@apply disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none;
+}
+
+@utility btn-primary {
+	@apply btn bg-brand-600 text-white hover:bg-brand-700 enabled:hover:scale-[1.02];
+}
+
+@utility card {
+	@apply rounded-2xl bg-white p-6 shadow-xl sm:p-8 dark:bg-slate-800;
+}
 
 @layer base {
 	/*
@@ -83,27 +133,7 @@
 
 	/* Klavye kullanicisi icin gorunur odak; fare tiklamasinda halka cikmaz. */
 	:where(a, button, select, input, [tabindex]):focus-visible {
-		@apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-gray-100 dark:ring-offset-slate-900;
-	}
-}
-
-@layer components {
-	/* Dokunma hedefi mobilde en az 44x44 px (WCAG 2.5.8). */
-	.tap-target {
-		@apply min-h-[44px] min-w-[44px];
-	}
-
-	.btn {
-		@apply tap-target inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-base font-medium shadow-md transition;
-		@apply disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none;
-	}
-
-	.btn-primary {
-		@apply btn bg-brand-600 text-white hover:bg-brand-700 enabled:hover:scale-[1.02];
-	}
-
-	.card {
-		@apply rounded-2xl bg-white p-6 shadow-xl sm:p-8 dark:bg-slate-800;
+		@apply outline-hidden ring-2 ring-brand ring-offset-2 ring-offset-gray-100 dark:ring-offset-slate-900;
 	}
 }
 

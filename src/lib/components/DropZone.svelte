@@ -62,7 +62,7 @@
 	aria-label={locale.dict.drop.label}
 	aria-disabled={disabled}
 	id="drop-zone"
-	class="flex flex-grow cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-10 text-center
+	class="flex grow cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-10 text-center
 		{disabled ? 'cursor-not-allowed opacity-60' : ''}
 		{dragging
 		? 'border-blue-500 bg-blue-50 dark:bg-slate-700'

@@ -51,18 +51,18 @@
 						<img
 							src={entry.url}
 							alt={locale.t((d) => d.files.preview, { name: entry.name })}
-							class="h-10 w-10 flex-none rounded object-cover"
+							class="h-10 w-10 flex-none rounded-sm object-cover"
 						/>
 					{:else}
 						<span
-							class="flex h-10 w-10 flex-none items-center justify-center rounded bg-gray-200 text-[10px] font-semibold text-gray-600 dark:bg-slate-700 dark:text-slate-300"
+							class="flex h-10 w-10 flex-none items-center justify-center rounded-sm bg-gray-200 text-[10px] font-semibold text-gray-600 dark:bg-slate-700 dark:text-slate-300"
 							aria-hidden="true"
 						>
 							{badge(entry)}
 						</span>
 					{/if}
 
-					<span class="min-w-0 flex-grow">
+					<span class="min-w-0 grow">
 						<span class="block truncate text-sm text-gray-700 dark:text-slate-200">
 							{entry.name}
 						</span>
@@ -90,7 +90,7 @@
 					class="flex items-center gap-3 rounded-lg border border-red-200 bg-red-50 p-2 dark:border-red-500/30 dark:bg-red-500/10"
 				>
 					<span
-						class="flex h-10 w-10 flex-none items-center justify-center rounded bg-red-100 text-red-600 dark:bg-red-500/20 dark:text-red-300"
+						class="flex h-10 w-10 flex-none items-center justify-center rounded-sm bg-red-100 text-red-600 dark:bg-red-500/20 dark:text-red-300"
 						aria-hidden="true"
 					>
 						<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -101,7 +101,7 @@
 							/>
 						</svg>
 					</span>
-					<span class="min-w-0 flex-grow">
+					<span class="min-w-0 grow">
 						<span class="block truncate text-sm font-medium text-red-700 dark:text-red-300">
 							{entry.sourceName}
 						</span>
