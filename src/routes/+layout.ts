@@ -1,4 +1,4 @@
-import { localeFromPath } from '$lib/i18n/paths';
+import { localeFromPath } from '#lib/i18n/paths.js';
 import type { LayoutLoad } from './$types';
 
 // Sayfalar build sirasinda onceden uretiliyor; yalnizca /api/convert calisma

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import Resizer from '$components/Resizer.svelte';
-	import ResizerTrust from '$components/ResizerTrust.svelte';
-	import ResizeHowTo from '$components/ResizeHowTo.svelte';
-	import AspectRatio from '$components/AspectRatio.svelte';
-	import Dimensions from '$components/Dimensions.svelte';
-	import Faq from '$components/Faq.svelte';
-	import { localizePath } from '$lib/i18n/paths';
-	import { getLocale } from '$lib/state/locale.svelte';
+	import Resizer from '#components/Resizer.svelte';
+	import ResizerTrust from '#components/ResizerTrust.svelte';
+	import ResizeHowTo from '#components/ResizeHowTo.svelte';
+	import AspectRatio from '#components/AspectRatio.svelte';
+	import Dimensions from '#components/Dimensions.svelte';
+	import Faq from '#components/Faq.svelte';
+	import { localizePath } from '#lib/i18n/paths.js';
+	import { getLocale } from '#lib/state/locale.svelte.js';
 
 	const locale = getLocale();
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getLocale } from '$lib/state/locale.svelte';
+	import { getLocale } from '#lib/state/locale.svelte.js';
 
 	/**
 	 * Aracin hemen altindaki guven seridi. Buradaki uc iddianin da kodda

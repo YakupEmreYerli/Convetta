@@ -1,12 +1,12 @@
 <script lang="ts">
 	import PageSection from './PageSection.svelte';
-	import { localizePath } from '$lib/i18n/paths';
-	import { getLocale } from '$lib/state/locale.svelte';
+	import { localizePath } from '#lib/i18n/paths.js';
+	import { getLocale } from '#lib/state/locale.svelte.js';
 
 	/**
 	 * Dosyalarin nereye gittigini anlatan bolum. Metinlerdeki her sayi ve her
-	 * istisna kodla ayni olmali: sinirlar $lib/formats ve $lib/server icinde,
-	 * ICO'nun gecici dosyasi ise $lib/server/magick icinde tanimli.
+	 * istisna kodla ayni olmali: sinirlar #lib/formats ve #lib/server icinde,
+	 * ICO'nun gecici dosyasi ise #lib/server/magick icinde tanimli.
 	 *
 	 * Ilk iki madde dosyanin cihazda kalip kalmadigini anlatiyor; kenar cizgisi
 	 * format tablosundaki yesil/kehribar rozetlerle ayni anlami tasiyor. Sira

@@ -9,7 +9,7 @@ Bu dosya, bu depoda çalışan ajanlara yön verir.
 ## Proje
 
 Convetta — ücretsiz online görsel dönüştürücü ve boyutlandırıcı
-([www.convetta.com](https://www.convetta.com)). SvelteKit 2 + Svelte 5 (rune'lar),
+([www.convetta.com](https://www.convetta.com)). SvelteKit 3 + Svelte 5 (rune'lar),
 `adapter-node`, TypeScript, Tailwind. Docker imajı Dokploy üzerinde çalışıyor.
 
 Depo bir zamanlar hem statik HTML siteyi hem de SvelteKit yeniden yazımını
@@ -25,7 +25,7 @@ npm run build        # adapter-node -> build/
 npm start            # server/index.js (build/ gerektirir) -> http://localhost:3000
 npm run preview      # SvelteKit'in kendi onizleme sunucusu
 npm run check        # svelte-kit sync + svelte-check
-npm test             # vitest run  (10 dosya, 71 test) - Node >= 22.12 gerekir
+npm test             # vitest run  (10 dosya, 71 test) - Node >= 22.17 gerekir
 
 npx vitest run src/lib/convert.test.ts     # tek dosya
 npx vitest run -t "test adi"               # tek test
@@ -86,7 +86,7 @@ FOUC önleyen tema betiğini satır içi çalıştırıyor; asıl koruma `defaul
 
 ## Yönlendirme ve i18n
 
-- Rotalar `src/routes/[[lang=locale]]/` altında; eşleştirici `src/params/locale.ts`.
+- Rotalar `src/routes/[[lang=locale]]/` altında; eşleştirici `src/params.ts`.
 - Varsayılan dil **Türkçe** ve önek almaz: `/`, `/resizer/`. İngilizce `/en/` önekli.
 - **Adres ile dil arasındaki tek dönüşüm noktası `src/lib/i18n/paths.ts`.** Kanonik
   adres, hreflang etiketleri ve dil seçici hep oradaki fonksiyonları kullanır.
@@ -107,6 +107,9 @@ kodlayıcı hata vermez, sessizce boş çıktı üretir — bu yüzden `PNG JPEG
 PDF` kontrolü var ve biri eksikse imaj hiç üretilmez. Yeni format eklersen ilgili
 `imagemagick-<format>` apk paketini ve bu listeyi güncelle. `magick.ts` ayrıca
 açılışta kodlayıcıları yoklar ve eksik formatı 500 yerine açık bir 501 ile reddeder.
+
+**SvelteKit yapılandırması `vite.config.ts` içindeki `sveltekit(...)` çağrısında
+veriliyor; kökte `svelte.config.js` kullanılmıyor.**
 
 **Tailwind yapılandırması `tailwind.app.config.js`, PostCSS zinciri
 `vite.config.ts` içinden veriliyor.** Kökte bilerek `postcss.config.js` yok. JS
