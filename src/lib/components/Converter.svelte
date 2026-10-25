@@ -42,7 +42,7 @@
 					<button
 						type="button"
 						id="formatSelect"
-						class="flex w-full items-center justify-between rounded-lg border border-gray-300 bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 shadow-sm transition-colors hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
+						class="flex w-full items-center justify-between rounded-lg border border-gray-300 bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 shadow-xs transition-colors hover:border-blue-500 focus:outline-hidden focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
 						aria-haspopup="listbox"
 						aria-expanded={formatOpen}
 						disabled={converterState.busy}
@@ -95,7 +95,7 @@
 
 			<button
 				type="button"
-				class="mt-4 w-full rounded-lg bg-blue-600 px-6 py-3 font-medium text-white shadow-md transition-transform duration-300 hover:scale-105 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100 sm:mt-0 sm:w-auto"
+				class="mt-4 w-full rounded-lg bg-blue-600 px-6 py-3 font-medium text-white shadow-md transition-transform duration-300 hover:scale-105 hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100 sm:mt-0 sm:w-auto"
 				disabled={converterState.busy || converterState.files.length === 0}
 				onclick={() => converterState.run()}
 			>

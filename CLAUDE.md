@@ -108,9 +108,10 @@ PDF` kontrolü var ve biri eksikse imaj hiç üretilmez. Yeni format eklersen il
 `imagemagick-<format>` apk paketini ve bu listeyi güncelle. `magick.ts` ayrıca
 açılışta kodlayıcıları yoklar ve eksik formatı 500 yerine açık bir 501 ile reddeder.
 
-**Tailwind yapılandırması `tailwind.app.config.js`, PostCSS zinciri
-`vite.config.ts` içinden veriliyor.** Kökte bilerek `postcss.config.js` yok. JS
-içinde dinamik atanan sınıflar `safelist`'e eklenmeli.
+**Tailwind yapılandırması `src/app.css` içindeki CSS `@theme` ve `@custom-variant`
+kurallarıyla tanımlı; PostCSS zinciri `vite.config.ts` içinden veriliyor.** Kökte
+bilerek `postcss.config.js` yok. JS içinde dinamik atanan sınıflar `@source inline()`
+ile eklenmeli.
 
 **Durum `*.svelte.ts` dosyalarında, rune'larla tutuluyor** (`src/lib/state/`). Dil
 tercihi `localStorage`'da `convetta:lang`, tema `convetta:theme` anahtarıyla; ikisi

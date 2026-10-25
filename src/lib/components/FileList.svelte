@@ -38,9 +38,9 @@
 				<img
 					src={item.previewUrl}
 					alt={locale.t((d) => d.files.preview, { name: item.file.name })}
-					class="h-10 w-10 flex-none rounded object-cover"
+					class="h-10 w-10 flex-none rounded-sm object-cover"
 				/>
-				<span class="min-w-0 flex-grow">
+				<span class="min-w-0 grow">
 					<span class="block truncate text-sm text-gray-700 dark:text-slate-200">
 						{item.file.name}
 					</span>

@@ -23,7 +23,7 @@
 	);
 </script>
 
-<header id="main-header" class="w-full bg-white shadow dark:bg-slate-800">
+<header id="main-header" class="w-full bg-white shadow-sm dark:bg-slate-800">
 	<div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
 		<a href={localizePath('/', locale.current)} aria-label={locale.dict.nav.home}>
 			<Logo class="h-7 w-auto" />

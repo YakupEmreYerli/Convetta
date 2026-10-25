@@ -25,7 +25,7 @@
 		role="region"
 		aria-labelledby="aspect-title"
 	>
-		<table class="w-full min-w-[36rem] border-collapse text-left text-sm">
+		<table class="w-full min-w-xl border-collapse text-left text-sm">
 			<thead>
 				<tr class="border-b border-gray-200 dark:border-slate-700">
 					<th scope="col" class="py-3 pr-4 font-semibold text-gray-800 dark:text-white">
