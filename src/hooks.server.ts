@@ -1,7 +1,8 @@
-import { redirect, type Handle } from '@sveltejs/kit';
-import { building } from '$app/environment';
-import { DEFAULT_LOCALE } from '$lib/i18n';
-import { localeFromPath } from '$lib/i18n/paths';
+import { redirect } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit/hooks';
+import { building } from '$app/env';
+import { DEFAULT_LOCALE } from '#lib/i18n/index.js';
+import { localeFromPath } from '#lib/i18n/paths.js';
 // Basliklar sunucu girdisiyle ortak; bkz. server/security.js.
 import { SECURITY_HEADERS } from '../server/security.js';
 

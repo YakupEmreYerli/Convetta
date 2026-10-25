@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { LOCALES, type Locale } from '$lib/i18n';
-	import { localizePath } from '$lib/i18n/paths';
-	import { getLocale } from '$lib/state/locale.svelte';
+	import { LOCALES, type Locale } from '#lib/i18n/index.js';
+	import { localizePath } from '#lib/i18n/paths.js';
+	import { getLocale } from '#lib/state/locale.svelte.js';
 
 	const locale = getLocale();
 

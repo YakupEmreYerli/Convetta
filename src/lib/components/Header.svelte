@@ -3,8 +3,8 @@
 	import ThemeToggle from './ThemeToggle.svelte';
 	import LanguageSwitch from './LanguageSwitch.svelte';
 	import { page } from '$app/state';
-	import { localizePath, stripLocale } from '$lib/i18n/paths';
-	import { getLocale } from '$lib/state/locale.svelte';
+	import { localizePath, stripLocale } from '#lib/i18n/paths.js';
+	import { getLocale } from '#lib/state/locale.svelte.js';
 
 	const locale = getLocale();
 

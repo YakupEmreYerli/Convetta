@@ -1,7 +1,7 @@
 <script lang="ts">
 	import PageSection from './PageSection.svelte';
-	import { localizePath } from '$lib/i18n/paths';
-	import { getLocale } from '$lib/state/locale.svelte';
+	import { localizePath } from '#lib/i18n/paths.js';
+	import { getLocale } from '#lib/state/locale.svelte.js';
 
 	/**
 	 * Boyutlandirma / donusturme / sikistirma ayrimi. Ic baglanti yalnizca
