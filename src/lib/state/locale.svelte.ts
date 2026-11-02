@@ -1,6 +1,6 @@
 import { getContext, setContext } from 'svelte';
-import { browser } from '$app/environment';
-import { dictionaries, fill, isLocale, type Dictionary, type Locale } from '$lib/i18n';
+import { browser } from '$app/env';
+import { dictionaries, fill, isLocale, type Dictionary, type Locale } from '#lib/i18n/index.js';
 
 const STORAGE_KEY = 'convetta:lang';
 const CONTEXT_KEY = Symbol('convetta:locale');

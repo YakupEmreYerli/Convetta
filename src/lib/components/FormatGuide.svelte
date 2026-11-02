@@ -1,8 +1,8 @@
 <script lang="ts">
 	import PageSection from './PageSection.svelte';
-	import { localizePath } from '$lib/i18n/paths';
-	import { getLocale } from '$lib/state/locale.svelte';
-	import { EXTENSION_BY_FORMAT, isCanvasFormat, TARGET_FORMATS } from '$lib/formats';
+	import { localizePath } from '#lib/i18n/paths.js';
+	import { getLocale } from '#lib/state/locale.svelte.js';
+	import { EXTENSION_BY_FORMAT, isCanvasFormat, TARGET_FORMATS } from '#lib/formats.js';
 
 	const locale = getLocale();
 

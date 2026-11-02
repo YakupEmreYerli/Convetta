@@ -1,4 +1,4 @@
-import { isValidDimension, matchAspect, resizeImage, resizedName } from '$lib/resize';
+import { isValidDimension, matchAspect, resizeImage, resizedName } from '#lib/resize.js';
 import { FileJobState, type ProcessedFile } from './fileJob.svelte';
 
 const DEFAULT_WIDTH = 1280;

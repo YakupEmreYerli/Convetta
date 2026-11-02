@@ -27,7 +27,7 @@
     "privacy"
   ],
   "engines": {
-    "node": ">=22.12"
+    "node": ">=22.17"
   },
   "scripts": {
     "dev": "vite dev",
@@ -38,14 +38,14 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@sveltejs/adapter-node": "^5.5.7",
-    "@sveltejs/kit": "^2.70.2",
+    "@sveltejs/adapter-node": "^6.0.0",
+    "@sveltejs/kit": "^3.0.0",
     "@sveltejs/vite-plugin-svelte": "^7.3.0",
     "@types/node": "^26.5.1",
     "autoprefixer": "^10.5.5",
     "jsdom": "^30.0.1",
     "postcss": "^8.5.28",
-    "svelte": "^5.57.0",
+    "svelte": "^5.57.1",
     "svelte-check": "^4.7.6",
     "tailwindcss": "^3.4.17",
     "typescript": "^6.0.3",
@@ -54,5 +54,9 @@
   },
   "dependencies": {
     "jszip": "^3.10.2"
+  },
+  "imports": {
+    "#lib/*": "./src/lib/*",
+    "#components/*": "./src/lib/components/*"
   }
 }

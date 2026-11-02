@@ -3,9 +3,9 @@
 	import DropZone from './DropZone.svelte';
 	import SelectedFiles from './FileList.svelte';
 	import ResultList from './ResultList.svelte';
-	import { isEditableTarget } from '$lib/clipboard';
-	import { getLocale } from '$lib/state/locale.svelte';
-	import type { FileJobState } from '$lib/state/fileJob.svelte';
+	import { isEditableTarget } from '#lib/clipboard.js';
+	import { getLocale } from '#lib/state/locale.svelte.js';
+	import type { FileJobState } from '#lib/state/fileJob.svelte.js';
 
 	const locale = getLocale();
 

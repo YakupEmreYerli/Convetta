@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { formatBytes } from '$lib/bytes';
-	import { getLocale } from '$lib/state/locale.svelte';
-	import type { SelectedFile } from '$lib/state/fileJob.svelte';
+	import { formatBytes } from '#lib/bytes.js';
+	import { getLocale } from '#lib/state/locale.svelte.js';
+	import type { SelectedFile } from '#lib/state/fileJob.svelte.js';
 
 	const locale = getLocale();
 

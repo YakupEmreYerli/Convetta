@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { getLocale } from '$lib/state/locale.svelte';
+	import { getLocale } from '#lib/state/locale.svelte.js';
 
 	/**
 	 * Boyutlandiriciya ozgu guven seridi. Ucunun de kodda karsiligi var:
-	 * $lib/resize tamamen canvas uzerinde calisiyor, oran kilidi varsayilan
+	 * #lib/resize tamamen canvas uzerinde calisiyor, oran kilidi varsayilan
 	 * olarak acik (bkz. ResizerState.lockRatio) ve toplu is + ZIP indirme
 	 * FileJobState'ten geliyor.
 	 */

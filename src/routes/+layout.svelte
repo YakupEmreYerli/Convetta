@@ -2,12 +2,12 @@
 	import '../app.css';
 	import { untrack } from 'svelte';
 	import { page } from '$app/state';
-	import Header from '$components/Header.svelte';
-	import Footer from '$components/Footer.svelte';
-	import { LOCALES } from '$lib/i18n';
-	import { localizePath } from '$lib/i18n/paths';
-	import { setLocaleContext } from '$lib/state/locale.svelte';
-	import { theme } from '$lib/state/theme.svelte';
+	import Header from '#components/Header.svelte';
+	import Footer from '#components/Footer.svelte';
+	import { LOCALES } from '#lib/i18n/index.js';
+	import { localizePath } from '#lib/i18n/paths.js';
+	import { setLocaleContext } from '#lib/state/locale.svelte.js';
+	import { theme } from '#lib/state/theme.svelte.js';
 
 	let { data, children } = $props();
 

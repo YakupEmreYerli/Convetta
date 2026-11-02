@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageSection from './PageSection.svelte';
-	import { getLocale } from '$lib/state/locale.svelte';
+	import { getLocale } from '#lib/state/locale.svelte.js';
 
 	const locale = getLocale();
 </script>

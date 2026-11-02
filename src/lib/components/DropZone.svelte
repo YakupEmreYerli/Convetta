@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { ACCEPTED_INPUT_TYPES } from '$lib/formats';
-	import { getLocale } from '$lib/state/locale.svelte';
+	import { ACCEPTED_INPUT_TYPES } from '#lib/formats.js';
+	import { getLocale } from '#lib/state/locale.svelte.js';
 
 	const locale = getLocale();
 

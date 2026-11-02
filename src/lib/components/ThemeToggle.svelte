@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { theme } from '$lib/state/theme.svelte';
-	import { getLocale } from '$lib/state/locale.svelte';
+	import { theme } from '#lib/state/theme.svelte.js';
+	import { getLocale } from '#lib/state/locale.svelte.js';
 
 	const locale = getLocale();
 

@@ -74,7 +74,7 @@ flowchart LR
 
 ## Hızlı başlangıç
 
-Gereksinim: **Node ≥ 22**. GIF/ICO/PDF dönüşümlerini yerelde denemek için ayrıca **ImageMagick** (`magick`) gerekir; kurulu değilse o üç format `501` döner, geri kalan her şey çalışır.
+Gereksinim: **Node ≥ 22.17**. GIF/ICO/PDF dönüşümlerini yerelde denemek için ayrıca **ImageMagick** (`magick`) gerekir; kurulu değilse o üç format `501` döner, geri kalan her şey çalışır.
 
 ```bash
 git clone https://github.com/YakupEmreYerli/Convetta.git

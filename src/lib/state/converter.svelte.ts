@@ -1,6 +1,6 @@
-import { convertImage } from '$lib/convert';
-import { outputName } from '$lib/filename';
-import { CANVAS_FORMATS, type TargetFormat } from '$lib/formats';
+import { convertImage } from '#lib/convert.js';
+import { outputName } from '#lib/filename.js';
+import { CANVAS_FORMATS, type TargetFormat } from '#lib/formats.js';
 import { FileJobState, type ProcessedFile } from './fileJob.svelte';
 
 export class ConverterState extends FileJobState {

@@ -1,14 +1,10 @@
 import { en, type Dictionary } from './en';
 import { tr } from './tr';
+import { DEFAULT_LOCALE, LOCALES } from './locales.js';
 
-export const LOCALES = ['tr', 'en'] as const;
 export type Locale = (typeof LOCALES)[number];
 
-/**
- * Varsayılan dil Türkçe: `/` Türkçe sunuluyor, İngilizce `/en` önekiyle.
- * Yol uretimi tek noktadan yapiliyor (bkz. ./paths.ts).
- */
-export const DEFAULT_LOCALE: Locale = 'tr';
+export { DEFAULT_LOCALE, LOCALES };
 
 export const dictionaries: Record<Locale, Dictionary> = { tr, en };
 

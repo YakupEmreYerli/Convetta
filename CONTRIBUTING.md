@@ -5,7 +5,7 @@ kabul edilebilmesi için nelerin gerektiğini kısaca anlatır.
 
 ## Ortamı kurmak
 
-Gereksinim: **Node ≥ 22.12**. (Test paketi vitest 5 nedeniyle Node 22.12+ gerektirir.)
+Gereksinim: **Node ≥ 22.17**. (SvelteKit 3 bu sürümü gerektirir.)
 
 ```bash
 npm install
@@ -32,7 +32,7 @@ npm run check    # svelte-check — 0 hata olmalı
 npm test         # vitest
 ```
 
-İkisi de yeşil olmalı; CI zaten aynı komutları Node 20 ve 22 üzerinde çalıştırıyor.
+İkisi de yeşil olmalı; CI zaten aynı komutları Node 22 ve 24 üzerinde çalıştırıyor.
 
 ## Yazım kuralları
 

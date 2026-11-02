@@ -1,12 +1,12 @@
 <script lang="ts">
-	import Converter from '$components/Converter.svelte';
-	import TrustStrip from '$components/TrustStrip.svelte';
-	import HowTo from '$components/HowTo.svelte';
-	import FormatGuide from '$components/FormatGuide.svelte';
-	import FileHandling from '$components/FileHandling.svelte';
-	import Faq from '$components/Faq.svelte';
-	import { localizePath } from '$lib/i18n/paths';
-	import { getLocale } from '$lib/state/locale.svelte';
+	import Converter from '#components/Converter.svelte';
+	import TrustStrip from '#components/TrustStrip.svelte';
+	import HowTo from '#components/HowTo.svelte';
+	import FormatGuide from '#components/FormatGuide.svelte';
+	import FileHandling from '#components/FileHandling.svelte';
+	import Faq from '#components/Faq.svelte';
+	import { localizePath } from '#lib/i18n/paths.js';
+	import { getLocale } from '#lib/state/locale.svelte.js';
 
 	const locale = getLocale();
 

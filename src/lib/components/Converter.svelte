@@ -1,8 +1,8 @@
 <script lang="ts">
 	import JobShell from './JobShell.svelte';
-	import { getLocale } from '$lib/state/locale.svelte';
-	import { ConverterState } from '$lib/state/converter.svelte';
-	import { isCanvasFormat, TARGET_FORMATS, type TargetFormat } from '$lib/formats';
+	import { getLocale } from '#lib/state/locale.svelte.js';
+	import { ConverterState } from '#lib/state/converter.svelte.js';
+	import { isCanvasFormat, TARGET_FORMATS, type TargetFormat } from '#lib/formats.js';
 
 	const locale = getLocale();
 	const converterState = new ConverterState();

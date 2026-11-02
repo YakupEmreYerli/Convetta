@@ -1,6 +1,6 @@
-import { extractClipboardImages } from '$lib/clipboard';
-import { ConversionError, type ConversionErrorCode } from '$lib/convert';
-import { uniqueName } from '$lib/filename';
+import { extractClipboardImages } from '#lib/clipboard.js';
+import { ConversionError, type ConversionErrorCode } from '#lib/convert.js';
+import { uniqueName } from '#lib/filename.js';
 
 /**
  * Donusturucu ve boyutlandiricinin paylastigi dosya akisi: secme, pano,

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import JobShell from './JobShell.svelte';
-	import { getLocale } from '$lib/state/locale.svelte';
-	import { ResizerState } from '$lib/state/resizer.svelte';
-	import { MAX_DIMENSION, MIN_DIMENSION } from '$lib/resize';
+	import { getLocale } from '#lib/state/locale.svelte.js';
+	import { ResizerState } from '#lib/state/resizer.svelte.js';
+	import { MAX_DIMENSION, MIN_DIMENSION } from '#lib/resize.js';
 
 	const locale = getLocale();
 	const state = new ResizerState();
