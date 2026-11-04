@@ -9,7 +9,7 @@ Gereksinim: **Node ≥ 22.12**. (Test paketi vitest 5 nedeniyle Node 22.12+ gere
 
 ```bash
 npm install
-npm run dev          # http://localhost:5173
+npm run dev          # http://localhost:4470
 ```
 
 GIF, ICO ve PDF dönüşümleri sunucuda **ImageMagick** ile yapılır. `magick` komutu

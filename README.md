@@ -80,7 +80,7 @@ Gereksinim: **Node ≥ 22**. GIF/ICO/PDF dönüşümlerini yerelde denemek için
 git clone https://github.com/YakupEmreYerli/Convetta.git
 cd Convetta
 npm install
-npm run dev          # http://localhost:5173
+npm run dev          # http://localhost:4470
 ```
 
 Üretim çıktısını yerelde çalıştırmak için:

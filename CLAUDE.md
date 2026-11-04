@@ -20,7 +20,7 @@ yorumla karşılaşırsan güncel karşılığını `src/` altında ara.
 ## Komutlar
 
 ```bash
-npm run dev          # Vite gelistirme sunucusu -> http://localhost:5173
+npm run dev          # Vite gelistirme sunucusu -> http://localhost:4470
 npm run build        # adapter-node -> build/
 npm start            # server/index.js (build/ gerektirir) -> http://localhost:3000
 npm run preview      # SvelteKit'in kendi onizleme sunucusu

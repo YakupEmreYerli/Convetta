@@ -40,7 +40,7 @@ describe('canonicalRedirect', () => {
 
 	it('saglik kontrolunu ve bilinmeyen konaklari yonlendirmez', () => {
 		expect(canonicalRedirect({ host: '127.0.0.1:8787' }, '/')).toBeNull();
-		expect(canonicalRedirect({ host: 'localhost:5173' }, '/')).toBeNull();
+		expect(canonicalRedirect({ host: 'localhost:4470' }, '/')).toBeNull();
 		expect(canonicalRedirect({}, '/')).toBeNull();
 	});
 

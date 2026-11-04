@@ -80,7 +80,7 @@ Requires **Node ≥ 22**. To exercise GIF/ICO/PDF locally you also need **ImageM
 git clone https://github.com/YakupEmreYerli/Convetta.git
 cd Convetta
 npm install
-npm run dev          # http://localhost:5173
+npm run dev          # http://localhost:4470
 ```
 
 To run the production output locally:
